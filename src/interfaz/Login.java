@@ -82,12 +82,12 @@ public class Login extends javax.swing.JFrame {
                 jButton1AceptarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1Aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 90, 32));
+        getContentPane().add(jButton1Aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, 90, 32));
 
         jButton2Cancelar.setBackground(new java.awt.Color(255, 255, 204));
         jButton2Cancelar.setForeground(new java.awt.Color(153, 0, 0));
         jButton2Cancelar.setText("Salir");
-        getContentPane().add(jButton2Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 89, 32));
+        getContentPane().add(jButton2Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 89, 32));
 
         jLabel1Fondo.setForeground(new java.awt.Color(204, 153, 0));
         jLabel1Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/loginn.png"))); // NOI18N
