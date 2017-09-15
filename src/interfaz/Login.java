@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package interfaz;
+import Datos.Usuarios;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +22,14 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        jTextFieldUsuario.setText("");
+        jPasswordFieldContraseña.setText("");
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = pantalla.height;
+        int width = pantalla.width;
+        setLocationRelativeTo(null);
+
+        setVisible(true);
     }
 
     /**
@@ -46,6 +60,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldUsuario.setBackground(new java.awt.Color(255, 255, 204));
+        jTextFieldUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUsuarioActionPerformed(evt);
@@ -54,14 +69,17 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 90, -1));
 
         jPasswordFieldContraseña.setBackground(new java.awt.Color(255, 255, 204));
-        jPasswordFieldContraseña.setText("jPasswordField1");
-        jPasswordFieldContraseña.setMinimumSize(new java.awt.Dimension(15, 30));
+        jPasswordFieldContraseña.setText("1234");
+        jPasswordFieldContraseña.setToolTipText("");
+        jPasswordFieldContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPasswordFieldContraseña.setMaximumSize(new java.awt.Dimension(111, 20));
+        jPasswordFieldContraseña.setMinimumSize(new java.awt.Dimension(111, 20));
         jPasswordFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldContraseñaActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, -1, -1));
+        getContentPane().add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 130, -1));
 
         jLabel1Usuario.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1Usuario.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
@@ -72,7 +90,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
         jLabel2.setText("Contraseña");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 90, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, 90, 20));
 
         jButton1Aceptar.setBackground(new java.awt.Color(255, 255, 204));
         jButton1Aceptar.setForeground(new java.awt.Color(153, 0, 0));
@@ -99,10 +117,45 @@ public class Login extends javax.swing.JFrame {
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
-
+Usuarios user = new Usuarios();
     private void jButton1AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AceptarActionPerformed
         // TODO add your handling code here:
         //REALIZAR EL CONTROL DE LOS DATOS
+        
+        try {
+            if (camposNoVacios()) {
+
+                user.setNombreUsuario(jTextFieldUsuario.getText());
+                boolean resp = user.verificarPass(user.getNombreUsuario(), Integer.parseInt(jPasswordFieldContraseña.getText()));
+                if (resp == true) {
+                    
+                  //  ResultSet rs = user.BuscarX(user.getNombreUsuario());
+                    
+                    if(user.getNombreUsuario().equals("admin")){
+                    //    JFrame view= new interfazAdm(this, user);
+                      //  view.setVisible(true);
+                       // setVisible(false);
+                    }
+                    else
+                    if(user.getNombreUsuario().equals("empleado")){
+                        JFrame view= new principalInterfazEncargado(this, user);
+                        view.setVisible(true);
+                        setVisible(false);
+                    }
+                    else if(user.getNombreUsuario().equals("cocina")){
+                    
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "ERROR!!", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Los Campos no pueden ser ", "ERROR!!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1AceptarActionPerformed
 
     private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
@@ -143,7 +196,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-
+public boolean camposNoVacios() {
+        if (jTextFieldUsuario.getText().length() != 0) {
+            if (jPasswordFieldContraseña.getText().length() != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1Aceptar;
     private javax.swing.JButton jButton2Cancelar;
@@ -155,3 +215,16 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }
+
+
+//--------------------------------------------------------------------------------------------------------
+//-----/
+
+//package Presentacion;
+//import Datos.Usuario;
+//import java.awt.Dimension;
+//import java.awt.Toolkit;
+//import java.sql.ResultSet;
+//import javax.swing.ImageIcon;
+//import javax.swing.JFrame;
+//import javax.swing.JOptionPane;

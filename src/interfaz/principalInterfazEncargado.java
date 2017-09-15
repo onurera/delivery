@@ -9,15 +9,26 @@ package interfaz;
  *
  * @author NICOLAS
  */
-public class principalInterfazEncargado extends javax.swing.JFrame {
+import Datos.Usuarios;
+import javax.swing.JFrame;
 
+public class principalInterfazEncargado extends javax.swing.JFrame {
+    Usuarios usuario;
+    JFrame P;
+    
     /**
      * Creates new form principalInterfazEncargado
      */
-    public principalInterfazEncargado() {
+    public principalInterfazEncargado(JFrame Padre, Usuarios user) {
         initComponents();
+    
     }
 
+    private principalInterfazEncargado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,8 +163,12 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new principalInterfazEncargado().setVisible(true);
+                
             }
         });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
