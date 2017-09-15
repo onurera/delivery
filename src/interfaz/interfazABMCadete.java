@@ -57,6 +57,11 @@ public class interfazABMCadete extends javax.swing.JFrame {
         jLabel1.setText("Usuario");
 
         jButton2BuscarEmpleado.setText("Buscar");
+        jButton2BuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2BuscarEmpleadoActionPerformed(evt);
+            }
+        });
 
         jButton2Modificar.setText("Modiicar ");
         jButton2Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +193,10 @@ public class interfazABMCadete extends javax.swing.JFrame {
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
          //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
+
+    private void jButton2BuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2BuscarEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2BuscarEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
