@@ -9,15 +9,21 @@ package interfaz;
  *
  * @author NICOLAS
  */
+import javax.swing.JFrame;
+import Datos.Usuarios;
 public class interazDetalleComidas extends javax.swing.JFrame {
 
     /**
      * Creates new form interazDetalleComidas
      */
-    public interazDetalleComidas() {
+    public interazDetalleComidas(JFrame Padre,Usuarios user) {
         initComponents();
     }
 
+    private interazDetalleComidas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

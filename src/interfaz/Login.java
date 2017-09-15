@@ -11,12 +11,13 @@ import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author NICOLAS
  */
 public class Login extends javax.swing.JFrame {
-
+JFrame wiev;
     /**
      * Creates new form Login
      */
@@ -118,6 +119,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 Usuarios user = new Usuarios();
+
     private void jButton1AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AceptarActionPerformed
         // TODO add your handling code here:
         //REALIZAR EL CONTROL DE LOS DATOS
@@ -132,18 +134,20 @@ Usuarios user = new Usuarios();
                   //  ResultSet rs = user.BuscarX(user.getNombreUsuario());
                     
                     if(user.getNombreUsuario().equals("admin")){
-                    //    JFrame view= new interfazAdm(this, user);
-                      //  view.setVisible(true);
-                       // setVisible(false);
+                        JFrame view = new interfazAdmin(this, user);
+                        view.setVisible(true);
+                        setVisible(false);
                     }
                     else
                     if(user.getNombreUsuario().equals("empleado")){
-                        JFrame view= new principalInterfazEncargado(this, user);
+                        JFrame view = new principalInterfazEncargado(this, user);
                         view.setVisible(true);
                         setVisible(false);
                     }
                     else if(user.getNombreUsuario().equals("cocina")){
-                    
+                        JFrame view = new interazDetalleComidas(this, user);
+                        view.setVisible(true);
+                        setVisible(false);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "ERROR!!", JOptionPane.ERROR_MESSAGE);
