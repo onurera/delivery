@@ -9,6 +9,7 @@ package interfaz;
  *
  * @author NICOLAS
  */
+import javax.swing.JFrame;
 public class interfazABMCadete extends javax.swing.JFrame {
 
     /**
@@ -175,6 +176,9 @@ public class interfazABMCadete extends javax.swing.JFrame {
     private void jButton1AgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AgregarEmpleadoActionPerformed
         // TODO add your handling code here:
         // ocultarr la interaz general y luego visualizar la ventana agregar empleado
+        JFrame view = new agregarCadete();
+        view.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButton1AgregarEmpleadoActionPerformed
 
     private void jTextField1BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1BuscarActionPerformed
