@@ -67,7 +67,7 @@ JFrame wiev;
                 jTextFieldUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 90, -1));
+        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 130, -1));
 
         jPasswordFieldContraseña.setBackground(new java.awt.Color(255, 255, 204));
         jPasswordFieldContraseña.setText("1234");
