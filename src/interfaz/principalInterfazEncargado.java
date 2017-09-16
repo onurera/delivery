@@ -55,8 +55,18 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
         jLabel1.setText("Principal Ventana del Encargado ");
 
         jButton1Pedido.setText("Pedidos");
+        jButton1Pedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1PedidoActionPerformed(evt);
+            }
+        });
 
         jButton2Cadetes.setText("Cadetes");
+        jButton2Cadetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2CadetesActionPerformed(evt);
+            }
+        });
 
         jButton3GenerarFact.setText("Generar Factura");
 
@@ -131,6 +141,16 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     private void jTextFieldTraerNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTraerNombreUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTraerNombreUsuarioActionPerformed
+
+    private void jButton2CadetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2CadetesActionPerformed
+       JFrame ventanaAgregarCadete = new interfazABMCadete();
+       ventanaAgregarCadete.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton2CadetesActionPerformed
+
+    private void jButton1PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1PedidoActionPerformed
 
     /**
      * @param args the command line arguments

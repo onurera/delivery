@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author NICOLAS
@@ -127,8 +129,13 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1AgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AgregarEmpleadoActionPerformed
+    
+        JFrame ventanaAgregarUsuario = new agregarEmpleado();
+       ventanaAgregarUsuario.setVisible(true);
+        setVisible(false);
+        
         // TODO add your handling code here:
-        // ocultarr la interaz general y luego visualizar la ventana agregar empleado
+           // ocultarr la interaz general y luego visualizar la ventana agregar empleado
     }//GEN-LAST:event_jButton1AgregarEmpleadoActionPerformed
 
     private void jTextField1BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1BuscarActionPerformed

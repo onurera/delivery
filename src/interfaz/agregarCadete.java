@@ -9,6 +9,8 @@ package interfaz;
  *
  * @author NICOLAS
  */
+
+import javax.swing.JFrame;
 public class agregarCadete extends javax.swing.JFrame {
 
     /**
@@ -17,7 +19,9 @@ public class agregarCadete extends javax.swing.JFrame {
     public agregarCadete() {
         initComponents();
     }
-
+//    public agregarCadete(JFrame Padre){
+//    
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
