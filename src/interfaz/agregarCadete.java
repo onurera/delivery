@@ -11,15 +11,11 @@ package interfaz;
  */
 
 import javax.swing.JFrame;
-import Datos.Cadete;
-import java.sql.*;
-import javax.swing.JOptionPane;
 public class agregarCadete extends javax.swing.JFrame {
 
     /**
      * Creates new form agregarEmpleado
      */
-    int idCadete=0;
     public agregarCadete() {
         initComponents();
     }
@@ -36,12 +32,13 @@ public class agregarCadete extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1DNI = new javax.swing.JTextField();
+        jTextField1nombreUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField1Nombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField1Apellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jTextField1Email = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField1Domicilio = new javax.swing.JTextField();
         jButton1Cancelar = new javax.swing.JButton();
@@ -61,6 +58,8 @@ public class agregarCadete extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Apellido");
+
+        jLabel5.setText("E-mail");
 
         jLabel6.setText("Domicilio");
 
@@ -85,29 +84,30 @@ public class agregarCadete extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1DNI, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField1nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(136, 136, 136)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(75, 75, 75)
-                            .addComponent(jButton1Cancelar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                            .addComponent(jButton2Aceptar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1Email, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(103, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1Cancelar)
+                .addGap(34, 34, 34)
+                .addComponent(jButton2Aceptar)
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +117,7 @@ public class agregarCadete extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1DNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -131,12 +131,14 @@ public class agregarCadete extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField1Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1Cancelar)
                     .addComponent(jButton2Aceptar))
-                .addGap(64, 64, 64))
+                .addGap(110, 110, 110))
         );
 
         pack();
@@ -148,26 +150,7 @@ public class agregarCadete extends javax.swing.JFrame {
 
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
         // agregar empleado(registrar en BD) y luego limpiar los campos
-        
-        try{
-        Cadete cadete = new Cadete();
-        if(verifcarCampos()){
-            cadete.setDni(Integer.parseInt(jTextField1DNI.getText()));
-            cadete.setNombre(jTextField1Nombre.getText());
-            cadete.setApellido(jTextField1Apellido.getText());
-            cadete.setDomicilio(jTextField1Domicilio.getText());
-            idCadete= cadete.Insertar();
-            
-            JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1DNI.requestFocus();
-            limpiarVariables();
-        }
-        }catch (Exception ex) 
-        {                 
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
-        }            
-        
-        
+        // 
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 
     /**
@@ -216,38 +199,9 @@ public class agregarCadete extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1Apellido;
-    private javax.swing.JTextField jTextField1DNI;
     private javax.swing.JTextField jTextField1Domicilio;
+    private javax.swing.JTextField jTextField1Email;
     private javax.swing.JTextField jTextField1Nombre;
+    private javax.swing.JTextField jTextField1nombreUsuario;
     // End of variables declaration//GEN-END:variables
-
-    private boolean verifcarCampos() 
-    {
-     if(!"".equals(jTextField1DNI.getText())){
-         if(!"".equals(jTextField1Nombre.getText())){
-             if(!"".equals(jTextField1Apellido.getText()))
-             {
-                if( !"".equals(jTextField1Domicilio.getText())){
-                       return true;
-                       }
-                else return false;
-                 }
-             else return false;
-         }                
-         else return false;
-     }
-     else return false;
-     }   
-
-    private void limpiarVariables() {
-        idCadete =0;
-        jTextField1DNI.setText("");
-        jTextField1Nombre.setText("");
-        jTextField1Apellido.setText("");
-        jTextField1Domicilio.setText("");
-        
-    }
-        
-    }
-
-        
+}
