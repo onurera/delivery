@@ -17,6 +17,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
      */
     public interfazABMCadete() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

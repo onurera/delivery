@@ -18,6 +18,7 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
      */
     public interfazUsuarioAdmi() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -98,16 +99,6 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1DatosPersonalesEmp);
-        if (jTable1DatosPersonalesEmp.getColumnModel().getColumnCount() > 0) {
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(0).setHeaderValue("NombreUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(1).setHeaderValue("Nombre");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(2).setHeaderValue("Apellido");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(3).setHeaderValue("tipoUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(4).setHeaderValue("Contraseña");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(5).setHeaderValue("Domicilio");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(6).setHeaderValue("E-mail");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(7).setHeaderValue("EstadoUsuario");
-        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 129, 670, 150));
 

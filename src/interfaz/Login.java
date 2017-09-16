@@ -23,6 +23,7 @@ JFrame wiev;
      */
     public Login() {
         initComponents();
+        
         jTextFieldUsuario.setText("");
         jPasswordFieldContraseña.setText("");
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,6 +58,7 @@ JFrame wiev;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(240, 240));
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -106,6 +108,11 @@ JFrame wiev;
         jButton2Cancelar.setBackground(new java.awt.Color(255, 255, 204));
         jButton2Cancelar.setForeground(new java.awt.Color(153, 0, 0));
         jButton2Cancelar.setText("Salir");
+        jButton2Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2CancelarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 89, 32));
 
         jLabel1Fondo.setForeground(new java.awt.Color(204, 153, 0));
@@ -165,6 +172,10 @@ Usuarios user = new Usuarios();
     private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordFieldContraseñaActionPerformed
+
+    private void jButton2CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2CancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2CancelarActionPerformed
 
     /**
      * @param args the command line arguments

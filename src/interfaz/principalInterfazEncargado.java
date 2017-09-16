@@ -21,6 +21,7 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
      */
     public principalInterfazEncargado(JFrame Padre, Usuarios user) {
         initComponents();
+        this.setLocationRelativeTo(null);
     
     }
 

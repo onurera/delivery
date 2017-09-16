@@ -8,7 +8,12 @@ package interfaz;
 /**
  *
  * @author NICOLAS
- */
+ */import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import Datos.Usuarios;
+import javax.swing.JFrame;
 public class agregarEmpleado extends javax.swing.JFrame {
 
     /**
@@ -16,8 +21,9 @@ public class agregarEmpleado extends javax.swing.JFrame {
      */
     public agregarEmpleado() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
-
+int idUsuario = 0;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +48,8 @@ public class agregarEmpleado extends javax.swing.JFrame {
         jButton1Cancelar = new javax.swing.JButton();
         jButton2Aceptar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField1Contraseña = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +69,7 @@ public class agregarEmpleado extends javax.swing.JFrame {
 
         jLabel5.setText("E-mail");
 
-        jComboBox1TipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1TipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "Empleado", "Cocinero" }));
         jComboBox1TipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1TipoUsuarioActionPerformed(evt);
@@ -71,6 +79,11 @@ public class agregarEmpleado extends javax.swing.JFrame {
         jLabel6.setText("Domicilio");
 
         jButton1Cancelar.setText("Cancelar");
+        jButton1Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1CancelarActionPerformed(evt);
+            }
+        });
 
         jButton2Aceptar.setText("Aceptar");
         jButton2Aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +93,8 @@ public class agregarEmpleado extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Alta Empleado");
+
+        jLabel8.setText("Contraseña");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,42 +109,45 @@ public class agregarEmpleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1nombreUsuario))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1Email)
-                                    .addComponent(jComboBox1TipoUsuario, 0, 159, Short.MAX_VALUE)
-                                    .addComponent(jTextField1Apellido)
-                                    .addComponent(jTextField1Nombre)
-                                    .addComponent(jTextField1Domicilio)))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(136, 136, 136)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1Email)
+                                .addComponent(jComboBox1TipoUsuario, 0, 159, Short.MAX_VALUE)
+                                .addComponent(jTextField1Apellido)
+                                .addComponent(jTextField1Nombre)
+                                .addComponent(jTextField1Domicilio))
+                            .addComponent(jTextField1nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jTextField1nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField1Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,12 +183,42 @@ public class agregarEmpleado extends javax.swing.JFrame {
 
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
         // agregar empleado(registrar en BD) y luego limpiar los campos
-        // 
+       try{
+          if(verificarDatosUsuarios()){
+           Usuarios miUsuario = new Usuarios();
+           miUsuario.setNombreUsuario(jTextField1nombreUsuario.getText());
+           miUsuario.setNombre(jTextField1Nombre.getText());
+           miUsuario.setApellido(jTextField1Apellido.getText());
+           miUsuario.setDomicilio(jTextField1Domicilio.getText());
+           int tipoUsuario= chequearUsuario(jComboBox1TipoUsuario.getSelectedItem().toString());
+           miUsuario.setTipo(tipoUsuario);
+           miUsuario.setContraseña(Integer.parseInt(jTextField1Contraseña.getText()));
+           miUsuario.setMail(jTextField1Email.getText());
+           miUsuario.setEstado(1);
+           idUsuario= miUsuario.Insertar();
+           JOptionPane.showMessageDialog(this, "Se cargó el Usuario ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+           
+           limpiarVariables();
+           jTextField1nombreUsuario.requestFocus();
+           
+          }
+          else JOptionPane.showMessageDialog(this, "Debe verificar todos los cambios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+       }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 
     private void jComboBox1TipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1TipoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1TipoUsuarioActionPerformed
+
+    private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
+
+        JFrame ventanaEmpleados= new interfazUsuarioAdmi();
+        ventanaEmpleados.setVisible(true);
+          setVisible(false); 
+    }//GEN-LAST:event_jButton1CancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,10 +266,47 @@ public class agregarEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField1Apellido;
+    private javax.swing.JTextField jTextField1Contraseña;
     private javax.swing.JTextField jTextField1Domicilio;
     private javax.swing.JTextField jTextField1Email;
     private javax.swing.JTextField jTextField1Nombre;
     private javax.swing.JTextField jTextField1nombreUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private int chequearUsuario(String tipoUsuario) {
+        if(tipoUsuario.equals("admin")){
+            return 0;
+        }else if(tipoUsuario.equals("empleado")){
+            return 1;
+        }
+        else return 2;
+    }
+
+    private boolean verificarDatosUsuarios() {
+        if(!"".equals(jTextField1nombreUsuario.getText())){
+            if(!"".equals(jTextField1Nombre.getText())){
+                if(!"".equals(jTextField1Apellido.getText())){
+                    if(!"".equals(jTextField1Domicilio.getText())){
+                        if(!"".equals(jTextField1Email.getText())){
+                            if(!"".equals(jTextField1Contraseña.getText())){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void limpiarVariables() {
+            jTextField1nombreUsuario.setText("");
+            jTextField1Nombre.setText("");
+            jTextField1Apellido.setText("");
+            jTextField1Domicilio.setText("");
+            jTextField1Contraseña.setText("");
+            jTextField1Email.setText("");
+    }
 }
