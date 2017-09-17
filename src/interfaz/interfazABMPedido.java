@@ -16,6 +16,7 @@ public class interfazABMPedido extends javax.swing.JFrame {
      */
     public interfazABMPedido() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

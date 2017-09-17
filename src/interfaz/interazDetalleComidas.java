@@ -18,6 +18,7 @@ public class interazDetalleComidas extends javax.swing.JFrame {
      */
     public interazDetalleComidas(JFrame Padre,Usuarios user) {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     private interazDetalleComidas() {

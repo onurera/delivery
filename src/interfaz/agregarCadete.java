@@ -18,6 +18,7 @@ public class agregarCadete extends javax.swing.JFrame {
      */
     public agregarCadete() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 //    public agregarCadete(JFrame Padre){
 //    
