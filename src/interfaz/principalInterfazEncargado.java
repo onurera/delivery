@@ -25,7 +25,7 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     
     }
 
-    private principalInterfazEncargado() {
+    public principalInterfazEncargado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -76,6 +76,11 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
         jLabel2.setText("nombreUsuario");
 
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         jTextFieldTraerNombreUsuario.setText("traerNOMBREusuario");
         jTextFieldTraerNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +157,10 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     private void jButton1PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PedidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1PedidoActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments

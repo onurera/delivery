@@ -186,7 +186,9 @@ try{
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        JFrame volverABMEmpleado= new interfazUsuarioAdmi();
+        volverABMEmpleado.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_jButton1CancelarActionPerformed
 
     /**

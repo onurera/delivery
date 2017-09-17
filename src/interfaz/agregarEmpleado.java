@@ -215,7 +215,7 @@ int idUsuario = 0;
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
 
-        JFrame ventanaEmpleados= new interfazUsuarioAdmi();
+        JFrame ventanaEmpleados= new principalInterfazEncargado();
         ventanaEmpleados.setVisible(true);
           setVisible(false); 
     }//GEN-LAST:event_jButton1CancelarActionPerformed
