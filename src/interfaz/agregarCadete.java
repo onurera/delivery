@@ -74,6 +74,11 @@ public class agregarCadete extends javax.swing.JFrame {
         jLabel6.setText("Domicilio");
 
         jButton1Cancelar.setText("Cancelar");
+        jButton1Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1CancelarActionPerformed(evt);
+            }
+        });
 
         jButton2Aceptar.setText("Aceptar");
         jButton2Aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +183,11 @@ try{
         }       
         
     }//GEN-LAST:event_jButton2AceptarActionPerformed
+
+    private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1CancelarActionPerformed
 
     /**
      * @param args the command line arguments
