@@ -137,9 +137,7 @@ Usuarios user = new Usuarios();
                 user.setNombreUsuario(jTextFieldUsuario.getText());
                 boolean resp = user.verificarPass(user.getNombreUsuario(), Integer.parseInt(jPasswordFieldContraseña.getText()));
                 if (resp == true) {
-                    
-                  //  ResultSet rs = user.BuscarX(user.getNombreUsuario());
-                    
+                 
                     if(user.getNombreUsuario().equals("admin")){
                         JFrame view = new interfazAdmin(this, user);
                         view.setVisible(true);
