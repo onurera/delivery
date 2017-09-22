@@ -9,7 +9,15 @@ package interfaz;
  *
  * @author NICOLAS
  */
+import Datos.Cadete;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class interfazABMCadete extends javax.swing.JFrame {
 
     /**
@@ -184,6 +192,49 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
     private void jTextField1BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1BuscarActionPerformed
         // TODO add your handling code here:
+         //ESTOY AQUIIIIIIIIIIIIIII        
+
+//Cadete cadete = new Cadete();
+        Cadete CA = new Cadete();
+        //Cadete CA = new Cadete();
+        String cabecera[]={"idcadete","Nombre","Apellido","DNI"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTable1DatosPersonalesEmp.setModel(modelo);
+        try {
+            
+            ResultSet cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
+            
+            if( cadete.first()){
+              int idcadete = cadete.getInt("idcadete");
+              String nombre = cadete.getString("nombre");
+              String apellido = cadete.getString("apellido");
+              int doc = cadete.getInt("dni");
+              Object fila[]= {idcadete,nombre,apellido,doc};
+              modelo.addRow(fila);              
+              //sacado de internet
+                            //            Cadetes VC = new Cadetes();
+//            VC.setDatosCadete(CA);
+//            VC.setCondatos_vacio(1); // 1 por que va con datos 
+//            VC.LlenarCampos();
+//            VC.setVisible(true);
+//            this.dispose();
+            }
+            else
+            {
+                
+                JOptionPane.showMessageDialog(this, "El cadete no existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
+//                jLabelMensajeError.setText("Cadete Inexistente - Para Agregar presione nuevo cadedete");
+//                jButtonEliminar.setEnabled(false);
+//                jButtonModificar.setEnabled(false);
+                
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jTextField1BuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
