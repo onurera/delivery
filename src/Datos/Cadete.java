@@ -177,7 +177,16 @@ public class Cadete {
         }
         return ide;
     }
-
+    public ResultSet traerCadetes()throws SQLException{
+        try {
+        Connection cn= Conexion.Cadena();
+            String sql= "Select * from Cadete";
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(sql);
+        }catch(ClassNotFoundException ex){
+            }
+        return rsDatos;
+    }
     public int eliminar(int ide) throws SQLException {
 
         try {
@@ -294,6 +303,29 @@ public class Cadete {
         }
         return rsDatos;
 
+    }
+        public ResultSet buscarParaFiltrar(String valor) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Cadete where CONCAT(nombre,'',apellido ) = '" + valor + "'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            while (rsDatos.next()) {
+                id = rsDatos.getInt("idCadete");
+                dni = rsDatos.getInt("dni");
+                nombre = rsDatos.getString("nombre");
+                apellido = rsDatos.getString("apellido");
+                domicilio = rsDatos.getString("domicilio");
+                estadoCadete = rsDatos.getInt("estadoCadete");
+                 totalPagar = rsDatos.getFloat("totalPaga");
+                //cn.commit();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
     }
     public ResultSet buscarXID(int ide) throws ClassNotFoundException {
         try {

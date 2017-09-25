@@ -72,6 +72,11 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
         jButton3GenerarFact.setText("Generar Factura");
 
         jButton4Comidas.setText("Comidas");
+        jButton4Comidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ComidasActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("nombreUsuario");
 
@@ -155,12 +160,18 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2CadetesActionPerformed
 
     private void jButton1PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PedidoActionPerformed
-        // TODO add your handling code here:
+        JFrame abrirPedido = new GestionarPedidos();
+        abrirPedido.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButton1PedidoActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButton4ComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ComidasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ComidasActionPerformed
 
     /**
      * @param args the command line arguments
