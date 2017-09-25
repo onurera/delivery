@@ -89,26 +89,16 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
         jTable1DatosPersonalesEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "NombreUsuario", "Nombre", "Apellido", "tipoUsuario", "Contraseña", "Domicilio", "E-mail", "EstadoUsuario"
+                "IdCadete", "Nombre", "Apellido", "dni"
             }
         ));
         jScrollPane1.setViewportView(jTable1DatosPersonalesEmp);
-        if (jTable1DatosPersonalesEmp.getColumnModel().getColumnCount() > 0) {
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(0).setHeaderValue("NombreUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(1).setHeaderValue("Nombre");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(2).setHeaderValue("Apellido");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(3).setHeaderValue("tipoUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(4).setHeaderValue("Contraseña");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(5).setHeaderValue("Domicilio");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(6).setHeaderValue("E-mail");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(7).setHeaderValue("EstadoUsuario");
-        }
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
