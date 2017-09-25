@@ -194,10 +194,10 @@ public class Cadete {
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
             psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET estadoCadete=? where idCadete=?");
-
+            
             psPrepSencencias.setInt(1, estadoCadete);
             psPrepSencencias.setString(2, Integer.toString(ide));
-
+            
             //ejecuto sentencia
             ide = psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
@@ -206,6 +206,27 @@ public class Cadete {
             Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ide;
+    }
+    
+    public int eliminardni(int dni) throws SQLException {
+
+        try {
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET estadoCadete=? where Dni=?");
+            
+            psPrepSencencias.setInt(1, estadoCadete);
+            psPrepSencencias.setString(2, Integer.toString(dni));
+
+            //ejecuto sentencia
+            dni = psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+            // rsDatos.first();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dni;
     }
 
     public int Insertar() throws SQLException {
@@ -284,7 +305,7 @@ public class Cadete {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Cadete where dni like '" + dnic + "'";
+            String SQL = "Select * from Cadete where dni = '" + dnic + "' and estadoCadete= 1";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -301,6 +322,7 @@ public class Cadete {
         } catch (SQLException ex) {
             Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return rsDatos;
 
     }
