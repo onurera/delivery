@@ -188,10 +188,8 @@ public class interfazABMCadete extends javax.swing.JFrame {
         // TODO add your handling code here:
          //ESTOY AQUIIIIIIIIIIIIIII        
 
-//Cadete cadete = new Cadete();
-        //int estado;
         Cadete CA = new Cadete();
-        //Cadete CA = new Cadete();
+   
         String cabecera[]={"idcadete","Nombre","Apellido","DNI"};
         String datos[][]={};
         DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
@@ -199,8 +197,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
         try {
             
             ResultSet cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
-            //estado = cadete.getInt("estadoCadete");
-            //if (estado != 1){
+           
             if( cadete.first()){
               int idcadete = cadete.getInt("idcadete");
               String nombre = cadete.getString("nombre");
@@ -208,22 +205,13 @@ public class interfazABMCadete extends javax.swing.JFrame {
               int doc = cadete.getInt("dni");
               Object fila[]= {idcadete,nombre,apellido,doc};
               modelo.addRow(fila);              
-              //sacado de internet
-                            //            Cadetes VC = new Cadetes();
-//            VC.setDatosCadete(CA);
-//            VC.setCondatos_vacio(1); // 1 por que va con datos 
-//            VC.LlenarCampos();
-//            VC.setVisible(true);
-//            this.dispose();
-// estadoCadete = rsDatos.getInt("estadoCadete");
+
             }
             else
             {
                 
                 JOptionPane.showMessageDialog(this, "El cadete no existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
-//                jLabelMensajeError.setText("Cadete Inexistente - Para Agregar presione nuevo cadedete");
-//                jButtonEliminar.setEnabled(false);
-//                jButtonModificar.setEnabled(false);
+
                 
             }
             
@@ -239,16 +227,19 @@ public class interfazABMCadete extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ModificarActionPerformed
+
+        
+
         // TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
         // 
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
-
+    if(jTable1DatosPersonalesEmp.getSelectedRows().length > 0){
               
         Cadete CA = new Cadete();
         try {
-            //try {
+           
             CA.eliminardni(Integer.parseInt(jTextField1Buscar.getText()));
         } catch (SQLException ex) {
             Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,16 +248,21 @@ public class interfazABMCadete extends javax.swing.JFrame {
           //  Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
        // }
         JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
-        //this.dispose();
+       
                         
        
-        //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
+    }
+else{
+           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun cadete", "AlToque Fast Food", JOptionPane.ERROR_MESSAGE);
+       }
+    
+    //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
 
     private void jButton2BuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2BuscarEmpleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2BuscarEmpleadoActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

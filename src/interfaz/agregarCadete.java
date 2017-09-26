@@ -161,9 +161,50 @@ public class agregarCadete extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1NombreActionPerformed
 
+     private boolean validarCampos(){
+        try{
+            //Long.parseLong(jTextFieldTelefono.getText());
+            if(jTextField1Nombre.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextField1Apellido.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(Integer.parseInt(jTextField1DNI.getText()) <=0 ){
+                JOptionPane.showMessageDialog(this, "ERROR: El Documento No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            //VER ESTO NO FUNCIONA
+//            if ((jComboBoxTipoDoc.getSelectedIndex())<0 ){
+//                JOptionPane.showMessageDialog(this, "-. ERROR: Debe seleccionar una opcion de tipo documento", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//                return false;        
+//            }
+            
+            if(jTextField1Domicilio.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextField1Email.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El Email No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "ERROR: El Telefono No debe ser vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+    } 
+   
+    
+        
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
         // agregar empleado(registrar en BD) y luego limpiar los campos
         // 
+   if(validarCampos()){     
 try{
         Cadete cadete = new Cadete();
         if(verifcarCampos()){
@@ -181,7 +222,7 @@ try{
         {                 
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
         }       
-        
+     } 
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
