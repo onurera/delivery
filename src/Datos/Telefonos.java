@@ -95,7 +95,7 @@ public class Telefonos {
                     PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setInt(1, cliente);
-
+            
             psPrepSencencias.setInt(2, telefono);
             psPrepSencencias.setInt(3, estado);
             //ejecuto sentencia
@@ -117,7 +117,7 @@ public class Telefonos {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Telefonos where numero  like '" + tel + "'";
+            String SQL = "Select * from Telefonos where numero  = '" + tel + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);

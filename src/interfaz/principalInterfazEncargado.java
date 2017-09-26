@@ -160,7 +160,9 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2CadetesActionPerformed
 
     private void jButton1PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PedidoActionPerformed
-        // TODO add your handling code here:
+        JFrame abrirPedido = new GestionarPedidos();
+        abrirPedido.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButton1PedidoActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed

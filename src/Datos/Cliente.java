@@ -140,7 +140,7 @@ public ResultSet buscar() throws ClassNotFoundException {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("insert into Cliente ( nombre, apellido,domicilio, zona, estadoCliente) values ( ?, ?, ?, ?,?)",
+            psPrepSencencias = cn.prepareStatement("insert into Cliente ( nombre, apellido,domicilio, zona, telefono ,estadoCliente) values ( ?, ?, ?, ?,?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
 
@@ -150,7 +150,8 @@ public ResultSet buscar() throws ClassNotFoundException {
             psPrepSencencias.setInt(4, zona);
 
             psPrepSencencias.setString(3, domicilio);
-            psPrepSencencias.setInt(5, estado);
+            psPrepSencencias.setInt(6, estado);
+            psPrepSencencias.setInt(5, telefono);
 
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
@@ -167,7 +168,22 @@ public ResultSet buscar() throws ClassNotFoundException {
         return id;
     }
 
-    
+    public ResultSet buscarPorTelefono(int telefono) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Cliente where telefono = '" + telefono + "'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
     
     
     public ResultSet BuscarXConId(int idc) throws ClassNotFoundException {

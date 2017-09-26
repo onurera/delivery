@@ -5,17 +5,26 @@
  */
 package interfaz;
 
+import Datos.Cadete;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author maximiliano
  */
 public class ConfirmarPedidos extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form ConfirmarPedidos
      */
     public ConfirmarPedidos() {
         initComponents();
+        buscarParaFiltrar("");
     }
 
     /**
@@ -28,17 +37,18 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelCadetes = new javax.swing.JLabel();
-        jComboBoxCadetes = new javax.swing.JComboBox();
         jLabelNumerodePedido = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButtonVolver = new javax.swing.JButton();
         jButtonConfirmar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1Cadete = new javax.swing.JTable();
+        jTextFieldDniCadete = new javax.swing.JTextField();
+        jButton1BuscarAlCade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelCadetes.setText("Cadetes:");
-
-        jComboBoxCadetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabelCadetes.setText("Dni o Nombre y apellido");
 
         jLabelNumerodePedido.setText("Numero de Pedido:");
 
@@ -51,47 +61,84 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
 
         jButtonConfirmar.setText("Confirmar");
 
+        jTable1Cadete.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "idCadete", "Nombre", "Apellido", "DniCadete", "EstadoCadete"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1Cadete);
+
+        jTextFieldDniCadete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDniCadeteActionPerformed(evt);
+            }
+        });
+        jTextFieldDniCadete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDniCadeteKeyReleased(evt);
+            }
+        });
+
+        jButton1BuscarAlCade.setText("Buscar");
+        jButton1BuscarAlCade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1BuscarAlCadeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelCadetes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxCadetes, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelNumerodePedido)
-                            .addComponent(jButtonVolver))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonConfirmar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelNumerodePedido)
+                                    .addComponent(jLabelCadetes))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextFieldDniCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1BuscarAlCade))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButtonConfirmar)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCadetes)
-                    .addComponent(jComboBoxCadetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumerodePedido)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCadetes)
+                    .addComponent(jTextFieldDniCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1BuscarAlCade))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVolver)
                     .addComponent(jButtonConfirmar))
-                .addGap(25, 25, 25))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -103,6 +150,86 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
         Volver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonVolverActionPerformed
+
+    private void jButton1BuscarAlCadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BuscarAlCadeActionPerformed
+                Cadete CA= new Cadete();
+                String estadoCadete= "";
+        String cabecera[]={"idcadete","Nombre","Apellido","DNI","EstadoCadete"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTable1Cadete.setModel(modelo);
+        try {
+            ResultSet traer= CA.traerCadetes();
+            if(traer.first())
+            {
+            do{
+                int idcadete = traer.getInt("idcadete");
+                String nombre = traer.getString("nombre");
+                String apellido = traer.getString("apellido");
+                int doc = traer.getInt("dni");
+                if(traer.getInt("estadoCadete")==1){
+                     estadoCadete= "Ocuado";
+                }
+                else
+                {
+                    estadoCadete = "Desocupado";
+                }
+                Object fila[]= {idcadete,nombre,apellido,doc,estadoCadete};
+              modelo.addRow(fila);
+            } while(traer.next());
+            
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConfirmarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(ConfirmarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+    }//GEN-LAST:event_jButton1BuscarAlCadeActionPerformed
+
+    private void jTextFieldDniCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDniCadeteActionPerformed
+        
+    }//GEN-LAST:event_jTextFieldDniCadeteActionPerformed
+    public void buscarParaFiltrar(String valor){
+             Cadete CA = new Cadete();
+        //Cadete CA = new Cadete();
+        String cabecera[]={"idcadete","Nombre","Apellido","DNI","EstadoCadete"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTable1Cadete.setModel(modelo);
+        try {
+            
+            ResultSet cadete = CA.buscarParaFiltrar(valor);
+            
+            if( cadete.first()){
+              int idcadete = cadete.getInt("idcadete");
+              String nombre = cadete.getString("nombre");
+              String apellido = cadete.getString("apellido");
+              int doc = cadete.getInt("dni");
+              Object fila[]= {idcadete,nombre,apellido,doc};
+              modelo.addRow(fila);              
+              
+            }
+            else
+            {
+                
+                JOptionPane.showMessageDialog(this, "El cadete no existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
+//                jLabelMensajeError.setText("Cadete Inexistente - Para Agregar presione nuevo cadedete");
+//                jButtonEliminar.setEnabled(false);
+//                jButtonModificar.setEnabled(false);
+                
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void jTextFieldDniCadeteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDniCadeteKeyReleased
+        buscarParaFiltrar(jTextFieldDniCadete.getText());
+    }//GEN-LAST:event_jTextFieldDniCadeteKeyReleased
 
     /**
      * @param args the command line arguments
@@ -140,11 +267,14 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1BuscarAlCade;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonVolver;
-    private javax.swing.JComboBox jComboBoxCadetes;
     private javax.swing.JLabel jLabelCadetes;
     private javax.swing.JLabel jLabelNumerodePedido;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1Cadete;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldDniCadete;
     // End of variables declaration//GEN-END:variables
 }

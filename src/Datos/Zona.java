@@ -96,5 +96,29 @@ public class Zona {
         }
         return rsDatos;
 
+    } 
+    public ResultSet BuscarPorZona(String desc) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Zona where descripcion like '" + desc + "'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            if ( rsDatos.getRow() != 0 ){
+
+            id= rsDatos.getInt("idZona");
+            descripcion = rsDatos.getString("descripcion");
+                     
+            precio = rsDatos.getFloat("precio");
+          
+            }
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
     }
 }

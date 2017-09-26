@@ -48,7 +48,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jButton1AgregarEmpleado.setText("Agregar ");
@@ -89,26 +89,16 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
         jTable1DatosPersonalesEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "NombreUsuario", "Nombre", "Apellido", "tipoUsuario", "Contraseña", "Domicilio", "E-mail", "EstadoUsuario"
+                "IdCadete", "Nombre", "Apellido", "dni"
             }
         ));
         jScrollPane1.setViewportView(jTable1DatosPersonalesEmp);
-        if (jTable1DatosPersonalesEmp.getColumnModel().getColumnCount() > 0) {
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(0).setHeaderValue("NombreUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(1).setHeaderValue("Nombre");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(2).setHeaderValue("Apellido");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(3).setHeaderValue("tipoUsuario");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(4).setHeaderValue("Contraseña");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(5).setHeaderValue("Domicilio");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(6).setHeaderValue("E-mail");
-            jTable1DatosPersonalesEmp.getColumnModel().getColumn(7).setHeaderValue("EstadoUsuario");
-        }
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +189,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
          //ESTOY AQUIIIIIIIIIIIIIII        
 
 //Cadete cadete = new Cadete();
+        //int estado;
         Cadete CA = new Cadete();
         //Cadete CA = new Cadete();
         String cabecera[]={"idcadete","Nombre","Apellido","DNI"};
@@ -208,7 +199,8 @@ public class interfazABMCadete extends javax.swing.JFrame {
         try {
             
             ResultSet cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
-            
+            //estado = cadete.getInt("estadoCadete");
+            //if (estado != 1){
             if( cadete.first()){
               int idcadete = cadete.getInt("idcadete");
               String nombre = cadete.getString("nombre");
@@ -223,6 +215,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
 //            VC.LlenarCampos();
 //            VC.setVisible(true);
 //            this.dispose();
+// estadoCadete = rsDatos.getInt("estadoCadete");
             }
             else
             {
@@ -251,7 +244,23 @@ public class interfazABMCadete extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
-         //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
+
+              
+        Cadete CA = new Cadete();
+        try {
+            //try {
+            CA.eliminardni(Integer.parseInt(jTextField1Buscar.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //} catch (ClassNotFoundException ex) {
+          //  Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+       // }
+        JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+        //this.dispose();
+                        
+       
+        //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
 
     private void jButton2BuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2BuscarEmpleadoActionPerformed
