@@ -5,6 +5,8 @@
  */
 package Datos;
 
+import interfaz.GestionarComidas;
+import interfaz.ModificarComida;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +29,7 @@ public class Comida {
     private int id;
     private String descripcion;
     private float precio;
-    private int estado;
+    private boolean estado;
 
     public Statement getSentencia() {
         return sentencia;
@@ -71,27 +74,51 @@ public class Comida {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-
-    public int getEstado() {
+     public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
-    public int modificar(int ide) throws SQLException {
+    public void modificar2(String desc, String prec/*, Boolean estado*/, String id){
+        ModificarComida MC = new ModificarComida();
+        
 
+        //Connection cn = Conexion.Cadena();
+        //psPrepSencencias = cn.prepareStatement("UPDATE Comida SET descripcion='"+MC.jTextFieldDescipcion.getText()+"',precio='"+MC.jTextFieldPrecio.getText()+"',estadoComida='"+MC.jTextFieldEstado.getText()+"' WHERE idComida='"MC.jTextFieldCodigo.getText()"'");﻿
+        try {    
+            Connection cn = Conexion.Cadena();
+            
+            psPrepSencencias = cn.prepareStatement("UPDATE Comida SET descripcion='"+desc+"',precio='"+prec+"' WHERE idComida='"+id+"'");//,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");
+            MC.limpiarVariables();//esta funcion no me lo anda
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Comida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Comida.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+    
+ 
+    public int modificar(int ide) throws SQLException {
         try {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE Comida SET descripcion=?, precio=? where idComida=?");
+            psPrepSencencias = cn.prepareStatement("UPDATE Comida SET descripcion=?, precio=?, estadoComida=? where idComida=?");
             // cargo parametros
             psPrepSencencias.setString(1, descripcion);
             // psPrepSencencias.setString(2, nombre);
             // psPrepSencencias.setString(3, apellido);
             psPrepSencencias.setFloat(2, precio);
+           // psPrepSencencias.setBoolean(3, estadoComida);
 
             psPrepSencencias.setInt(3, ide);
 
@@ -105,7 +132,20 @@ public class Comida {
         }
         return ide;
     }
-
+    public void eliminar2 (String valor){   
+        
+        try {    
+            Connection cn = Conexion.Cadena();
+            psPrepSencencias = cn.prepareStatement("DELETE FROM Comida WHERE idComida='"+valor+"'");
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Eliminacion con exito");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Comida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Comida.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+    }
     public int eliminar(int ide) throws SQLException {
         try {
             Connection cn = Conexion.Cadena();
@@ -113,7 +153,7 @@ public class Comida {
             // para poder obtener el ID del campo autoincrement
             psPrepSencencias = cn.prepareStatement("UPDATE Comida SET estadoComida=? where idComida=?");
 
-            psPrepSencencias.setInt(1, estado);
+            psPrepSencencias.setBoolean(1, isEstado());
             psPrepSencencias.setInt(2, ide);
 
             //ejecuto sentencia
@@ -138,7 +178,7 @@ public class Comida {
             // cargo parametros
             psPrepSencencias.setString(1, descripcion);
             psPrepSencencias.setFloat(2, precio);
-            psPrepSencencias.setInt(3, estado);
+            psPrepSencencias.setBoolean(3, isEstado());
 
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
@@ -187,6 +227,7 @@ public class Comida {
             id = rsDatos.getInt("idComida");
             descripcion = rsDatos.getString("descripcion");
             precio = rsDatos.getFloat("precio");
+            estado = rsDatos.getBoolean("estadoComida");
             //cn.commit();
 
         } catch (SQLException ex) {
@@ -217,5 +258,14 @@ public class Comida {
         return rsDatos;
 
     }
+
+    public int modificar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the estado
+     */
+   
 
 }
