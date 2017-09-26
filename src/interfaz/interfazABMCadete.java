@@ -24,7 +24,9 @@ public class interfazABMCadete extends javax.swing.JFrame {
      * Creates new form interfazUsuarioAdmi
      */
     public interfazABMCadete() {
+       
         initComponents();
+        jButton1AgregarEmpleado.setEnabled(false);
         this.setLocationRelativeTo(null);
     }
 
@@ -204,12 +206,13 @@ public class interfazABMCadete extends javax.swing.JFrame {
               String apellido = cadete.getString("apellido");
               int doc = cadete.getInt("dni");
               Object fila[]= {idcadete,nombre,apellido,doc};
-              modelo.addRow(fila);              
+              modelo.addRow(fila);     
+              jButton1AgregarEmpleado.setEnabled(false);
 
             }
             else
             {
-                
+                jButton1AgregarEmpleado.setEnabled(true);
                 JOptionPane.showMessageDialog(this, "El cadete no existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
 
                 
