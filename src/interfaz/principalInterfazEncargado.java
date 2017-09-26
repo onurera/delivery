@@ -171,6 +171,9 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
 
     private void jButton4ComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ComidasActionPerformed
         // TODO add your handling code here:
+        GestionarComidas abrir=new GestionarComidas();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ComidasActionPerformed
 
     /**
