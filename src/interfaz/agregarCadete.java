@@ -24,6 +24,17 @@ public class agregarCadete extends javax.swing.JFrame {
     /**
      * Creates new form agregarEmpleado
      */
+    private String dni;
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    
+    
     public agregarCadete() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -47,15 +58,13 @@ public class agregarCadete extends javax.swing.JFrame {
         jTextField1Nombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField1Apellido = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1Email = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField1Domicilio = new javax.swing.JTextField();
         jButton1Cancelar = new javax.swing.JButton();
         jButton2Aceptar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("DNI");
 
@@ -68,8 +77,6 @@ public class agregarCadete extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Apellido");
-
-        jLabel5.setText("E-mail");
 
         jLabel6.setText("Domicilio");
 
@@ -101,19 +108,16 @@ public class agregarCadete extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1DNI)
                             .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                             .addComponent(jTextField1Apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1Email, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))))
+                            .addComponent(jTextField1Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))))
                 .addContainerGap(120, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -125,7 +129,7 @@ public class agregarCadete extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -143,11 +147,7 @@ public class agregarCadete extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1Cancelar)
                     .addComponent(jButton2Aceptar))
@@ -186,10 +186,10 @@ public class agregarCadete extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            if(jTextField1Email.getText().length() <= 0){
-                JOptionPane.showMessageDialog(this, "ERROR: El Email No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+//            if(jTextField1Email.getText().length() <= 0){
+//                JOptionPane.showMessageDialog(this, "ERROR: El Email No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//                return false;
+//            }
             return true;
         }
         catch(NumberFormatException e){
@@ -197,6 +197,12 @@ public class agregarCadete extends javax.swing.JFrame {
             return false;
         }
         
+    } 
+     
+    public void desabilitar() {
+        jTextField1DNI.setText(dni);
+        jTextField1DNI.setEditable(false);
+
     } 
    
     
@@ -212,22 +218,30 @@ try{
             cadete.setNombre(jTextField1Nombre.getText());
             cadete.setApellido(jTextField1Apellido.getText());
             cadete.setDomicilio(jTextField1Domicilio.getText());
+           
             idCadete= cadete.Insertar();
             
             JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             jTextField1DNI.requestFocus();
             limpiarVariables();
+            
+         
         }
         }catch (Exception ex) 
         {                 
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
         }       
-     } 
+     }
+   
+    interfazABMCadete volverABMCadete= new interfazABMCadete();
+        volverABMCadete.setVisible(true);
+          setVisible(false);
+                             
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
         // TODO add your handling code here:
-        JFrame volverABMCadete= new interfazABMCadete();
+        interfazABMCadete volverABMCadete= new interfazABMCadete();
         volverABMCadete.setVisible(true);
           setVisible(false);
     }//GEN-LAST:event_jButton1CancelarActionPerformed
@@ -259,6 +273,12 @@ try{
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -274,16 +294,16 @@ try{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1Apellido;
-    private javax.swing.JTextField jTextField1DNI;
-    private javax.swing.JTextField jTextField1Domicilio;
-    private javax.swing.JTextField jTextField1Email;
-    private javax.swing.JTextField jTextField1Nombre;
+    public javax.swing.JTextField jTextField1Apellido;
+    public javax.swing.JTextField jTextField1DNI;
+    public javax.swing.JTextField jTextField1Domicilio;
+    public javax.swing.JTextField jTextField1Nombre;
     // End of variables declaration//GEN-END:variables
 
+    
+   
 private boolean verifcarCampos() 
     {
      if(!"".equals(jTextField1DNI.getText())){
@@ -308,7 +328,7 @@ private boolean verifcarCampos()
         jTextField1Nombre.setText("");
         jTextField1Apellido.setText("");
         jTextField1Domicilio.setText("");
-        jTextField1Email.setText("");
+        //jTextField1Email.setText("");
     }
 
 }

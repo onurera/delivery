@@ -5,6 +5,8 @@
  */
 package Datos;
 
+import interfaz.interfazABMCadete;
+import interfaz.modificarCadete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -177,6 +180,31 @@ public class Cadete {
         }
         return ide;
     }
+//(dni, nombre,apellido,domicilio,email) 
+
+    /**
+     *
+     * @param dni
+     * @param nombre
+     * @param apellido
+     * @param domicilio
+     */
+    public void modificar2(String dni, String nombre,String apellido, String domicilio){
+
+///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
+        
+        modificarCadete MC = new modificarCadete();
+        
+        try {    
+            Connection cn = Conexion.Cadena();            
+            psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET dni='"+dni+"',nombre='"+nombre+"',apellido='"+apellido+"',domicilio='"+domicilio+"' WHERE dni='"+dni+"'");//,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");        
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
     public ResultSet traerCadetes()throws SQLException{
         try {
         Connection cn= Conexion.Cadena();
@@ -240,6 +268,7 @@ public class Cadete {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
+//            String SQL = "Select * from Cadete where dni = '" + dni + "' and estadoCadete= 1";
             psPrepSencencias = cn.prepareStatement("insert into Cadete (dni, nombre, apellido, domicilio, estadoCadete, ocupado, totalPaga) values (?, ?, ?, ?, ?, ?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
@@ -395,5 +424,6 @@ public class Cadete {
         }
         return ide;
     }
+    
 
 }

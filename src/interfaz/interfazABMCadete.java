@@ -91,13 +91,13 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
         jTable1DatosPersonalesEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "IdCadete", "Nombre", "Apellido", "dni"
+                "IdCadete", "Nombre", "Apellido", "dni", "domicilio"
             }
         ));
         jScrollPane1.setViewportView(jTable1DatosPersonalesEmp);
@@ -181,7 +181,10 @@ public class interfazABMCadete extends javax.swing.JFrame {
     private void jButton1AgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AgregarEmpleadoActionPerformed
         // TODO add your handling code here:
         // ocultarr la interaz general y luego visualizar la ventana agregar empleado
-        JFrame view = new agregarCadete();
+        
+        agregarCadete view = new agregarCadete();
+        view.setDni(jTextField1Buscar.getText());
+        view.desabilitar();
         view.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1AgregarEmpleadoActionPerformed
@@ -192,7 +195,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
         Cadete CA = new Cadete();
    
-        String cabecera[]={"idcadete","Nombre","Apellido","DNI"};
+        String cabecera[]={"idcadete","Nombre","Apellido","DNI","domicilio"};
         String datos[][]={};
         DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
         jTable1DatosPersonalesEmp.setModel(modelo);
@@ -205,17 +208,19 @@ public class interfazABMCadete extends javax.swing.JFrame {
               String nombre = cadete.getString("nombre");
               String apellido = cadete.getString("apellido");
               int doc = cadete.getInt("dni");
-              Object fila[]= {idcadete,nombre,apellido,doc};
+              String domicilio = cadete.getString("domicilio");
+              Object fila[]= {idcadete,nombre,apellido,doc,domicilio};
               modelo.addRow(fila);     
               jButton1AgregarEmpleado.setEnabled(false);
-
+              jButton2Modificar.setEnabled(true);
+              jButton3EliminarEmpleado.setEnabled(true);
             }
             else
             {
                 jButton1AgregarEmpleado.setEnabled(true);
                 JOptionPane.showMessageDialog(this, "El cadete no existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
-
-                
+                jButton2Modificar.setEnabled(false);
+                jButton3EliminarEmpleado.setEnabled(false);
             }
             
         } catch (ClassNotFoundException ex) {
@@ -231,14 +236,27 @@ public class interfazABMCadete extends javax.swing.JFrame {
 
     private void jButton2ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ModificarActionPerformed
 
+         // TODO add your handling code here:
+        modificarCadete MC = new modificarCadete();
+                
+        int fila = jTable1DatosPersonalesEmp.getSelectedRow();
         
-
-        // TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
-        // 
+       if(fila>=0){
+       MC.setVisible(true);
+       this.setVisible(false);
+       MC.jTextField1DNI.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
+       MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
+       MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
+       MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
+       
+       }else{
+       JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
+//         
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
-    if(jTable1DatosPersonalesEmp.getSelectedRows().length > 0){
+
+        if(jTable1DatosPersonalesEmp.getSelectedRows().length > 0){
               
         Cadete CA = new Cadete();
         try {
