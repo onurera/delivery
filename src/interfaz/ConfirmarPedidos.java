@@ -6,6 +6,7 @@
 package interfaz;
 
 import Datos.Cadete;
+import Datos.Pedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,12 +22,21 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
     
     /**
      * Creates new form ConfirmarPedidos
+     * @param pedPadre
      */
+    Pedido ped;     
     public ConfirmarPedidos() {
         initComponents();
         buscarParaFiltrar("");
+        setLocationRelativeTo(null);
     }
 
+//    private ConfirmarPedidos() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +61,12 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
         jLabelCadetes.setText("Dni o Nombre y apellido");
 
         jLabelNumerodePedido.setText("Numero de Pedido:");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButtonVolver.setText("Volver");
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +247,10 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
         buscarParaFiltrar(jTextFieldDniCadete.getText());
     }//GEN-LAST:event_jTextFieldDniCadeteKeyReleased
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        int id=ped.getId();
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +280,7 @@ public class ConfirmarPedidos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ConfirmarPedidos().setVisible(true);
             }

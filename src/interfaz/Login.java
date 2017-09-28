@@ -139,18 +139,18 @@ Usuarios user = new Usuarios();
                 if (resp == true) {
                  
                     if(user.getNombreUsuario().equals("admin")){
-                        JFrame view = new interfazAdmin(this, user);
+                        JFrame view = new interfazAdmin();
                         view.setVisible(true);
                         setVisible(false);
                     }
                     else
                     if(user.getNombreUsuario().equals("empleado")){
-                        JFrame view = new principalInterfazEncargado(this, user);
+                        JFrame view = new principalInterfazEncargado();
                         view.setVisible(true);
                         setVisible(false);
                     }
                     else if(user.getNombreUsuario().equals("cocina")){
-                        JFrame view = new interazDetalleComidas(this, user);
+                        JFrame view = new interazDetalleComidas();
                         view.setVisible(true);
                         setVisible(false);
                     }

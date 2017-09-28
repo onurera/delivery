@@ -16,14 +16,14 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     /**
      * Creates new form interazDetalleComidas
      */
-    public interazDetalleComidas(JFrame Padre,Usuarios user) {
+    public interazDetalleComidas() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-    private interazDetalleComidas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    private interazDetalleComidas() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
