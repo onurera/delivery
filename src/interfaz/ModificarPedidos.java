@@ -10,6 +10,7 @@ package interfaz;
  * @author maximiliano
  */
 import Datos.Cliente;
+import Datos.Comida;
 import Datos.Pedido;
 import Datos.detallePedido;
 import Datos.Telefonos;
@@ -22,10 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ModificarPedidos extends javax.swing.JFrame {
-    Telefonos tel;
-    Cliente cli;
-    Zona zona;
-    Pedido ped;
+    Telefonos tel = new Telefonos();
+    Cliente cli = new Cliente();
+    Zona zona = new Zona();
+    Pedido ped = new Pedido();
+    Comida com = new Comida();
+    detallePedido detalleped = new detallePedido();
     DefaultTableModel tablaClienteyPedido;
     DefaultTableModel tablaDetalleComidas;
     /**
@@ -33,9 +36,16 @@ public class ModificarPedidos extends javax.swing.JFrame {
      */
     public ModificarPedidos() {
         initComponents();
-        String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas"};
+        jTextFieldNumerodePedido.setEnabled(false);
+        String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas","Zona","Precio Zona"};
+        tablaClienteyPedido = new DefaultTableModel();
+        tablaDetalleComidas = new DefaultTableModel();
         jTable1TablaClientePedido.setModel(tablaClienteyPedido);
+        
         tablaClienteyPedido.setColumnIdentifiers(cabecera);
+        String cabecera2 [] ={"idComida","Descripcion","Cantidad","Precio Unitario","Precio Total"};
+        jTable3TablaComidaCliente.setModel(tablaDetalleComidas);
+        tablaDetalleComidas.setColumnIdentifiers(cabecera2);
     }
 
     /**
@@ -89,6 +99,12 @@ public class ModificarPedidos extends javax.swing.JFrame {
 
         jLabelTelefono.setText("Telefono:");
 
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
+
         jLabelComentario.setText("(*)Para Buscar el pedido ingrese el codigo del pedido o el telefono del cliente ");
 
         jButton1BuscarXTelefono.setText("buscar");
@@ -139,7 +155,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonModificar.setText("Modificar");
+        jButtonModificar.setText("Modificar Cliente");
 
         jButtonEliminar.setText("Eliminar");
 
@@ -152,24 +168,24 @@ public class ModificarPedidos extends javax.swing.JFrame {
 
         jTable1TablaClientePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Telefono Cliente", "Nombre Cliente", "Apellido Cliente", "fechas", "horas"
+                "Telefono Cliente", "Nombre Cliente", "Apellido Cliente", "fechas", "horas", "Zona", "precioZona"
             }
         ));
         jScrollPane1.setViewportView(jTable1TablaClientePedido);
@@ -180,8 +196,8 @@ public class ModificarPedidos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,76 +297,76 @@ public class ModificarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1VolverAtrasActionPerformed
 
     private void jButton1BuscarXTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BuscarXTelefonoActionPerformed
-        try {
+        
         // Tengo que buscar el telefono, luego buscar al cliente, 
             // una ves que lo encuentor al cliente, traigo los datos personal para concer al cliente y
             // traer la zona y su precio. Despues ir a pedido, traer sus datos relacionado
             // con los datos de ése cliente. Luego para finalizar traer todos los detalle de sus pedidos
             // con sus Precio unitario y Total.
-            
-           ResultSet telefonos= tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
-           if(telefonos.first()){
+        // 2.- Tener en cuenta, que tendré que realizar 2 modulos,
+        // a- modulo para cargar tabla Cliente y b-modulo cargar detalle comida
+            String zonas;
+           float precioZona;
+           
+           
+        try {
+           ResultSet telefonos = tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
+            if(telefonos.first()){
               int idCli = telefonos.getInt("idCliente");
                   ResultSet clientes= cli.BuscarXConId(idCli);
                   if (clientes.first()){
+                      
+                       if(clientes.getInt("zona")==1){
+                           zonas="centrica";
+                           ResultSet zonaaa= zona.BuscarPorZona(zonas);
+                           if(zonaaa.first()){
+                               precioZona = zonaaa.getFloat("precio");
+                           }
+                       }else{ zonas="no centrica"; 
+                              precioZona=zona.getRsDatos().getFloat("precio");}
                       ResultSet pedido= ped.BuscarXCliente(clientes.getInt("idCliente"));
-                      do{
-                         if(idCli== clientes.getInt("idCliente")) {
-                 tablaClienteyPedido.addRow(new Object[]{clientes.getString("nombre"),clientes.getString(apellido)} );
-                 
-//                 ResultSet zon= zona.BuscarPorZona(jTextField1Zona.getText());
-//                if(zon.first()){
-//                   
-//                    if(jTextField1Zona.getText().equals(zon.getString("descripcion"))){
-//                        importeZon= zon.getFloat("precio");
-//                   jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
-//                   jTextField1ImporteZOna.setEditable(false);
-//                   
-//                    }else{
-//                        importeZon= zon.getFloat("precio");
-//                        jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
-//                   jTextField1ImporteZOna.setEditable(false);
-//                    }
-//                }
-            
-                
-            }else {
-//            
-//             }
-             else{
-                 JOptionPane.showMessageDialog(this, "No existe el cliente, por favor Registrelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                      ResultSet detallePed = detalleped.BuscarDetalles(pedido.getInt("idPedido"));
+                      ResultSet comida= com.buscar();
+                      if(pedido.first()&& detallePed.first()&& comida.first()){
+                          if(idCli== clientes.getInt("idCliente")){
+                          
+   tablaClienteyPedido.addRow(new Object[]{telefonos.getInt("numero"),clientes.getString("nombre"),clientes.getString("apellido"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas});
+                          if(detallePed.getInt("idPedido")==pedido.getInt("idPedido")){
+                              do{ 
+                                      do{                                 
+                                          float precioTotal;
+  tablaDetalleComidas.addRow(new Object []{comida.getInt("idComida"),comida.getString("descripcion"),comida.getInt("cantidad"),comida.getFloat("precio"),precioTotal=comida.getInt("comida")*comida.getFloat("precio")});                                    
+                                      }while(comida.next());
+                                     }while(detallePed.next());
+                                  } 
+                          else{JOptionPane.showMessageDialog(this, "Id pedido no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                            }
+                          else{JOptionPane.showMessageDialog(this, "Id Cliente no son iguales ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      }
+                      else{JOptionPane.showMessageDialog(this, "id pedido, detalle y comida no se encontró ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      } 
+                 else{
+                      JOptionPane.showMessageDialog(this, "Id Cliente no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                  }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "telefono no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
              }
-             idCliente= clientes.getInt("idCliente");
-         }while (clientes.next());
-          
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-        
-//        jButtonNuevoCliente.setEnabled(true);
-//        jButtonBuscar.setEnabled(false);
-//        jTextFieldTelefono.setText("");
-//        jTextFieldTelefonoClienteBuscado.requestFocus();
-//        }
-//              }while(telefonos.next());
-//          }
-//           else{
-//            jButtonNuevoCliente.setEnabled(true);
-//            JOptionPane.showMessageDialog(this, "No existe el cliente, Incorporelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-//               
-//           }
-//        
-//                //Consultar por que no me funciona el mensaje de error o buscar !
-//              
-//        }
-//    catch (SQLException ex) {
-//        Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-//    catch (ClassNotFoundException ex) {
-//        Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
-    }
+            
+      
     }//GEN-LAST:event_jButton1BuscarXTelefonoActionPerformed
-        }
-    }
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+        
+    
     /**
      * @param args the command line arguments
      */
