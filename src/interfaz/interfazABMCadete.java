@@ -248,15 +248,19 @@ public class interfazABMCadete extends javax.swing.JFrame {
        MC.setVisible(true);
        this.setVisible(false);       
        
-       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
+       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
        MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
        MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
        MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
        MC.jTextField1Id.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 0).toString());
        
+       MC.jTextFielddniant.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
+             
        }else{
        JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
-//         
+ 
+        MC.desabilitar2();
+               
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
@@ -348,7 +352,7 @@ else{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1DatosPersonalesEmp;
+    public javax.swing.JTable jTable1DatosPersonalesEmp;
     private javax.swing.JTextField jTextField1Buscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static java.lang.Character.UnicodeBlock.of;
+import java.sql.ResultSet;
 
 public class modificarCadete extends javax.swing.JFrame {
 
@@ -30,11 +31,17 @@ public class modificarCadete extends javax.swing.JFrame {
      * Creates new form agregarEmpleado
      */
     public modificarCadete() {
-   
+        
         initComponents();
         this.setLocationRelativeTo(null);
+//        
     }
-    int idCadete = 0;
+    
+    int idCadete;
+    //int docant=0;
+//    docant = (Integer.parseInt(jTextField1DNI1.getText()));
+//    JOptionPane.showMessageDialog(null,docant);
+//    
 //    public agregarCadete(JFrame Padre){
 //    
 //    }
@@ -60,6 +67,7 @@ public class modificarCadete extends javax.swing.JFrame {
         jButton2Aceptar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextField1DNI1 = new javax.swing.JTextField();
+        jTextFielddniant = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,16 +101,16 @@ public class modificarCadete extends javax.swing.JFrame {
 
         jLabel7.setText("ModificarCadete");
 
+        jTextFielddniant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFielddniantActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(jButton1Cancelar)
-                .addGap(34, 34, 34)
-                .addComponent(jButton2Aceptar)
-                .addGap(115, 115, 115))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -116,13 +124,21 @@ public class modificarCadete extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1Id)
-                            .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1Apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1DNI1))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFielddniant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1Id)
+                                .addComponent(jTextField1Domicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .addComponent(jTextField1Apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .addComponent(jTextField1Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .addComponent(jTextField1DNI1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(jButton1Cancelar)
+                .addGap(34, 34, 34)
+                .addComponent(jButton2Aceptar)
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +163,9 @@ public class modificarCadete extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFielddniant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1Cancelar)
                     .addComponent(jButton2Aceptar))
@@ -199,42 +217,76 @@ public class modificarCadete extends javax.swing.JFrame {
         }
 
     }
-
+public void desabilitar2() {
+       // jTextField1DNI.setText(dni);
+        jTextFielddniant.setEditable(false);
+        jTextField1Id.setEditable(false);
+        this.jTextFielddniant.setVisible(false);
+        this.jTextField1Id.setVisible(false);
+                
+    } 
+    
 
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
-       
+      //estoy aquiiiiiiiiiiiiiiiiiiiiiiiiii
+        modificarCadete MC = new modificarCadete();
+        interfazABMCadete ABM = new  interfazABMCadete();
+        int fila = ABM.jTable1DatosPersonalesEmp.getSelectedRow();       
+      
+        int doc;
+        doc = (Integer.parseInt(jTextFielddniant.getText()));          
         int dni;
         dni = (Integer.parseInt(jTextField1DNI1.getText()));
         String nombre = jTextField1Nombre.getText();
         String apellido = jTextField1Apellido.getText();
         String domicilio = jTextField1Domicilio.getText();     
         String Idcadete = jTextField1Id.getText(); 
-        //Cadete cadete = new Cadete();     
-         
-        //String SQL = "Select * from Cadete where dni = '" + dni + "' and estadoCadete= 1";
-        
-//      int adni=cadete.getDni();
-//      String a=String.valueOf(adni);
-    // if(dni!=a){
-//            
-      // if(validarCampos()){     
-try{
-//        Cadete cadete = new Cadete();
-        if(verifcarCampos()){
-             Cadete Co = new Cadete();
-            Co.modificar2(Idcadete,dni,nombre,apellido,domicilio);          
-            
-           // jTextField1DNI.requestFocus();
-            limpiarVariables();
+              
+Cadete Co = new Cadete();
+
+ResultSet cad = null;
+        try {
+            cad = Co.buscar(Integer.parseInt(jTextField1DNI1.getText()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(modificarCadete.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }catch (NumberFormatException | HeadlessException ex) 
-        {                 
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
-        }       
-     //} 
+           
+        try {
+            if( !cad.first()){
+                               
+                if(validarCampos()){
+                    
+                    try{
+                if(verifcarCampos()){
+                Co.modificar2(Idcadete,dni,nombre,apellido,domicilio);
+                limpiarVariables();
+                 }
+                    }catch (NumberFormatException | HeadlessException ex)
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+                    }
+                 }
+            }else{
+                       if(dni==doc){
+                       if(validarCampos()){
+                    
+                    try{
+                if(verifcarCampos()){
+                Co.modificar2(Idcadete,dni,nombre,apellido,domicilio);
+                limpiarVariables();
+                 }
+                    }catch (NumberFormatException | HeadlessException ex)
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+                    }
+                 }
+                       }else{
+                        JOptionPane.showMessageDialog(this, "El dni ingresado pertenese a un cadete ya existe "," ", JOptionPane.INFORMATION_MESSAGE);
+                       }
+            }  } catch (SQLException ex) {
+            Logger.getLogger(modificarCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
      
-        //} 
-        
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
@@ -243,6 +295,10 @@ try{
         volverABMCadete.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1CancelarActionPerformed
+
+    private void jTextFielddniantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielddniantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFielddniantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +355,7 @@ try{
     public javax.swing.JTextField jTextField1Domicilio;
     public javax.swing.JTextField jTextField1Id;
     public javax.swing.JTextField jTextField1Nombre;
+    public javax.swing.JTextField jTextFielddniant;
     // End of variables declaration//GEN-END:variables
 
     private boolean verifcarCampos() {
