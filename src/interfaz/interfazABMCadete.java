@@ -42,7 +42,6 @@ public class interfazABMCadete extends javax.swing.JFrame {
         jButton1AgregarEmpleado = new javax.swing.JButton();
         jTextField1Buscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2BuscarEmpleado = new javax.swing.JButton();
         jButton2Modificar = new javax.swing.JButton();
         jButton3EliminarEmpleado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,13 +66,6 @@ public class interfazABMCadete extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Usuario");
-
-        jButton2BuscarEmpleado.setText("Buscar");
-        jButton2BuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2BuscarEmpleadoActionPerformed(evt);
-            }
-        });
 
         jButton2Modificar.setText("Modiicar ");
         jButton2Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,13 +126,8 @@ public class interfazABMCadete extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(42, 42, 42)
                                         .addComponent(jButton2Modificar)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(17, 17, 17)
-                                        .addComponent(jButton3EliminarEmpleado))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2BuscarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(17, 17, 17)
+                                .addComponent(jButton3EliminarEmpleado)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -158,12 +145,11 @@ public class interfazABMCadete extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2BuscarEmpleado))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1AgregarEmpleado)
                     .addComponent(jButton2Modificar)
@@ -243,23 +229,26 @@ public class interfazABMCadete extends javax.swing.JFrame {
 //       view.setDni(jTextField1Buscar.getText());
         // c.desabilitar();
        int fila = jTable1DatosPersonalesEmp.getSelectedRow();
-        
+        MC.dniant=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 3);
+        MC.idcade=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 0);
+//       JOptionPane.showMessageDialog(null, Integer.toString(MC.idcade));
        if(fila>=0){
        MC.setVisible(true);
-       this.setVisible(false);       
-       
+       this.setVisible(false);           
+              
        MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
        MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
        MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
        MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
-       MC.jTextField1Id.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 0).toString());
        
-       MC.jTextFielddniant.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
+    //MC.jTextField1Id.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 0).toString());
+       
+     //  MC.jTextFielddniant.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
              
        }else{
        JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
  
-        MC.desabilitar2();
+       // MC.desabilitar2();
                
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
@@ -288,10 +277,6 @@ else{
     
     //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
-
-    private void jButton2BuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2BuscarEmpleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2BuscarEmpleadoActionPerformed
     
     /**
      * @param args the command line arguments
@@ -346,7 +331,6 @@ else{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1AgregarEmpleado;
-    private javax.swing.JButton jButton2BuscarEmpleado;
     private javax.swing.JButton jButton2Modificar;
     private javax.swing.JButton jButton3EliminarEmpleado;
     private javax.swing.JLabel jLabel1;

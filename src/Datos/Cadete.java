@@ -190,7 +190,7 @@ public class Cadete {
      * @param domicilio
      * @param Idcadete
      */
-    public void modificar2(String Idcadete,int doc, String nombre,String apellido, String domicilio){
+    public void modificar2(int Idcadete,int doc, String nombre,String apellido, String domicilio){
 
 ///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
         
@@ -299,14 +299,11 @@ public class Cadete {
     public ResultSet buscar(int dnic) throws ClassNotFoundException {
         try {
             Connection cn = Conexion.Cadena();
-
-           // String SQL = "Select * from Cadete where estadoCadete like 1";
-              String SQL = "Select * from Cadete where dni = '" + dnic + "'";
+              String SQL = "Select * from Cadete where dni = '" + dnic + "' and estadoCadete = 1";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
 
-            //cn.commit();
         } catch (SQLException ex) {
             Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
         }

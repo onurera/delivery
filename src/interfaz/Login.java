@@ -139,18 +139,24 @@ Usuarios user = new Usuarios();
                 if (resp == true) {
                  
                     if(user.getNombreUsuario().equals("admin")){
-                        JFrame view = new interfazAdmin(this, user);
+                        interfazAdmin view = new interfazAdmin(this, user);
+                         view.jLabel3.setText(jTextFieldUsuario.getText());
                         view.setVisible(true);
                         setVisible(false);
                     }
                     else
                     if(user.getNombreUsuario().equals("empleado")){
-                        JFrame view = new principalInterfazEncargado(this, user);
+                        principalInterfazEncargado view = new principalInterfazEncargado(this, user);
+//                        principalInterfazEncargado A = new principalInterfazEncargado();
+//                       
+                       view.jLabel3.setText(jTextFieldUsuario.getText());
+                       
                         view.setVisible(true);
                         setVisible(false);
                     }
                     else if(user.getNombreUsuario().equals("cocina")){
-                        JFrame view = new interazDetalleComidas(this, user);
+                        interazDetalleComidas view = new interazDetalleComidas(this, user);
+                         view.jLabel3.setText(jTextFieldUsuario.getText());
                         view.setVisible(true);
                         setVisible(false);
                     }

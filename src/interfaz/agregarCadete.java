@@ -211,10 +211,8 @@ public class agregarCadete extends javax.swing.JFrame {
         
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
         // agregar empleado(registrar en BD) y luego limpiar los campos
-        // 
-        
-        
-        
+               
+               
         if(validarCampos()){     
 try{
         Cadete cadete = new Cadete();
