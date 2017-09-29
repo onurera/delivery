@@ -237,17 +237,22 @@ public class interfazABMCadete extends javax.swing.JFrame {
     private void jButton2ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ModificarActionPerformed
 
          // TODO add your handling code here:
-        modificarCadete MC = new modificarCadete();
-                
-        int fila = jTable1DatosPersonalesEmp.getSelectedRow();
+        
+         modificarCadete MC = new modificarCadete();
+         //agregarCadete c = new agregarCadete();
+//       view.setDni(jTextField1Buscar.getText());
+        // c.desabilitar();
+       int fila = jTable1DatosPersonalesEmp.getSelectedRow();
         
        if(fila>=0){
        MC.setVisible(true);
-       this.setVisible(false);
-       MC.jTextField1DNI.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
+       this.setVisible(false);       
+       
+       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
        MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
        MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
        MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
+       MC.jTextField1Id.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 0).toString());
        
        }else{
        JOptionPane.showMessageDialog(null, "fila no seleccionada");}   

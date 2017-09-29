@@ -11,6 +11,7 @@ package interfaz;
  */
 
 import Datos.Cadete;
+import java.sql.ResultSet;
 //import Datos.Usuarios;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -164,6 +165,10 @@ public class agregarCadete extends javax.swing.JFrame {
      private boolean validarCampos(){
         try{
             //Long.parseLong(jTextFieldTelefono.getText());
+            if(Integer.parseInt(jTextField1DNI.getText()) <=0 ){
+                JOptionPane.showMessageDialog(this, "ERROR: El Documento No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
             if(jTextField1Nombre.getText().length() <= 0){
                 JOptionPane.showMessageDialog(this, "ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -172,10 +177,7 @@ public class agregarCadete extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            if(Integer.parseInt(jTextField1DNI.getText()) <=0 ){
-                JOptionPane.showMessageDialog(this, "ERROR: El Documento No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+            
             //VER ESTO NO FUNCIONA
 //            if ((jComboBoxTipoDoc.getSelectedIndex())<0 ){
 //                JOptionPane.showMessageDialog(this, "-. ERROR: Debe seleccionar una opcion de tipo documento", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
@@ -201,7 +203,7 @@ public class agregarCadete extends javax.swing.JFrame {
      
     public void desabilitar() {
         jTextField1DNI.setText(dni);
-        jTextField1DNI.setEditable(false);
+        //jTextField1DNI.setEditable(false);
 
     } 
    
@@ -210,32 +212,42 @@ public class agregarCadete extends javax.swing.JFrame {
     private void jButton2AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarActionPerformed
         // agregar empleado(registrar en BD) y luego limpiar los campos
         // 
-   if(validarCampos()){     
+        
+        
+        
+        if(validarCampos()){     
 try{
         Cadete cadete = new Cadete();
         if(verifcarCampos()){
             cadete.setDni(Integer.parseInt(jTextField1DNI.getText()));
             cadete.setNombre(jTextField1Nombre.getText());
             cadete.setApellido(jTextField1Apellido.getText());
-            cadete.setDomicilio(jTextField1Domicilio.getText());
-           
-            idCadete= cadete.Insertar();
-            
-            JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1DNI.requestFocus();
-            limpiarVariables();
-            
+            cadete.setDomicilio(jTextField1Domicilio.getText());          
          
+            
+            ResultSet cad = cadete.buscar(Integer.parseInt(jTextField1DNI.getText()));
+           
+            if( !cad.first()){
+              idCadete= cadete.Insertar();
+                
+                JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "", JOptionPane.INFORMATION_MESSAGE);
+                jTextField1DNI.requestFocus();
+                limpiarVariables();
+                }else{
+                JOptionPane.showMessageDialog(this, "El cadete ya existe "," ", JOptionPane.INFORMATION_MESSAGE);
+                                           
+            }
+            
         }
         }catch (Exception ex) 
         {                 
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
+            //JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);       
         }       
      }
    
-    interfazABMCadete volverABMCadete= new interfazABMCadete();
-        volverABMCadete.setVisible(true);
-          setVisible(false);
+//    interfazABMCadete volverABMCadete= new interfazABMCadete();
+//        volverABMCadete.setVisible(true);
+//          setVisible(false);
                              
     }//GEN-LAST:event_jButton2AceptarActionPerformed
 

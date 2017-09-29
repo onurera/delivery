@@ -46,10 +46,11 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField1DNI" max="32767" attributes="0"/>
+                          <Component id="jTextField1Id" max="32767" attributes="0"/>
                           <Component id="jTextField1Domicilio" pref="159" max="32767" attributes="0"/>
                           <Component id="jTextField1Apellido" pref="159" max="32767" attributes="0"/>
                           <Component id="jTextField1Nombre" pref="159" max="32767" attributes="0"/>
+                          <Component id="jTextField1DNI1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -65,7 +66,7 @@
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1DNI" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextField1DNI1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -82,7 +83,9 @@
                   <Component id="jTextField1Domicilio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jTextField1Id" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1Cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2Aceptar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -98,7 +101,7 @@
         <Property name="text" type="java.lang.String" value="DNI"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1DNI">
+    <Component class="javax.swing.JTextField" name="jTextField1Id">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -156,6 +159,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ModificarCadete"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1DNI1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

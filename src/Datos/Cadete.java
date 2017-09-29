@@ -184,12 +184,13 @@ public class Cadete {
 
     /**
      *
-     * @param dni
+     * @param doc
      * @param nombre
      * @param apellido
      * @param domicilio
+     * @param Idcadete
      */
-    public void modificar2(String dni, String nombre,String apellido, String domicilio){
+    public void modificar2(String Idcadete,int doc, String nombre,String apellido, String domicilio){
 
 ///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
         
@@ -197,9 +198,10 @@ public class Cadete {
         
         try {    
             Connection cn = Conexion.Cadena();            
-            psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET dni='"+dni+"',nombre='"+nombre+"',apellido='"+apellido+"',domicilio='"+domicilio+"' WHERE dni='"+dni+"'");//,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET dni='"+doc+"',nombre='"+nombre+"',apellido='"+apellido+"',domicilio='"+domicilio+"' WHERE idCadete='"+Idcadete+"'"); //,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
             psPrepSencencias.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Datos Actualizados");        
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");   
+            //JOptionPane.showMessageDialog(null,doc);   
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
@@ -294,11 +296,12 @@ public class Cadete {
         return idCadete;
     }
 
-    public ResultSet buscar() throws ClassNotFoundException {
+    public ResultSet buscar(int dnic) throws ClassNotFoundException {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Cadete where estadoCadete like 1";
+           // String SQL = "Select * from Cadete where estadoCadete like 1";
+              String SQL = "Select * from Cadete where dni = '" + dnic + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -310,6 +313,39 @@ public class Cadete {
         return rsDatos;
 
     }
+//    public ResultSet buscar() throws ClassNotFoundException {
+//        try {
+//            Connection cn = Conexion.Cadena();
+//
+//            String SQL = "Select * from Cadete where estadoCadete like 1";
+//
+//            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(SQL);
+//
+//            //cn.commit();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return rsDatos;
+//
+//    }
+//public int nuevaCadet(Cadete C) throws ClassNotFoundException, SQLException {
+//        ResultSet NC;
+//        NC = C.consultaCadete(C.getNumDocumento());
+//
+//        if (NC.first()) {
+//            if (NC.getBoolean("estado")) {
+//                return 1;
+//            } else {
+//                C.agregarNuevoCadete();
+//                return 0;
+//            }
+//        } else {
+//            C.agregarNuevoCadete();
+//            return 0;
+//        }
+//    
+//}
 
     public ResultSet buscarDisponible() throws ClassNotFoundException {
         try {
