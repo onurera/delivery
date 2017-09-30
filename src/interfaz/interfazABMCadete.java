@@ -10,23 +10,42 @@ package interfaz;
  * @author NICOLAS
  */
 import Datos.Cadete;
+import Datos.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class interfazABMCadete extends javax.swing.JFrame {
+    
+    private Statement sentencia;
+    private ResultSet rsDatos;
+    private DefaultTableModel modelo;
+   // private TableRowSorter trsFiltro;
+    private PreparedStatement psPrepSencencias;
 
     /**
      * Creates new form interfazUsuarioAdmi
      */
     public interfazABMCadete() {
-       
+   
         initComponents();
+        try {
+            cargarTablaCadetes();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jButton1AgregarEmpleado.setEnabled(false);
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -174,6 +193,29 @@ public class interfazABMCadete extends javax.swing.JFrame {
         view.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1AgregarEmpleadoActionPerformed
+public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
+        String datos[] = new String[5];
+        DefaultTableModel dtm = (DefaultTableModel) jTable1DatosPersonalesEmp.getModel();
+        while (dtm.getRowCount() > 0) {
+            dtm.removeRow(0);
+        }
+        
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM Cadete WHERE estadoCadete = '"+1+"' ";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            while (rsDatos.next()) {
+                datos[0] = rsDatos.getString(1);
+                datos[1] = rsDatos.getString(3);
+                datos[2] = rsDatos.getString(4);
+                datos[3] = rsDatos.getString(2);
+                datos[4] = rsDatos.getString(5);
+                dtm.addRow(datos);
+            }
+        
+            
+        
+    }
 
     private void jTextField1BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1BuscarActionPerformed
         // TODO add your handling code here:
@@ -223,42 +265,83 @@ public class interfazABMCadete extends javax.swing.JFrame {
     private void jButton2ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ModificarActionPerformed
 
          // TODO add your handling code here:
-        
-         modificarCadete MC = new modificarCadete();
-         //agregarCadete c = new agregarCadete();
-//       view.setDni(jTextField1Buscar.getText());
-        // c.desabilitar();
-       int fila = jTable1DatosPersonalesEmp.getSelectedRow();
-        MC.dniant=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 3);
-        MC.idcade=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 0);
-//       JOptionPane.showMessageDialog(null, Integer.toString(MC.idcade));
-       if(fila>=0){
-       MC.setVisible(true);
-       this.setVisible(false);           
-              
-       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
-       MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
-       MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
-       MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
-       
-    //MC.jTextField1Id.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 0).toString());
-       
-     //  MC.jTextFielddniant.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
-             
-       }else{
-       JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
- 
-       // MC.desabilitar2();
-               
-    }//GEN-LAST:event_jButton2ModificarActionPerformed
+        Cadete CA = new Cadete();
+       modificarCadete MC = new modificarCadete();
+       int filaseleccionada = jTable1DatosPersonalesEmp.getSelectedRow();
 
+        if(filaseleccionada >= 0){
+       
+       MC.setVisible(true);
+       this.setVisible(false);
+       jTextField1Buscar.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 3).toString());
+       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 3).toString());
+       MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 1).toString());
+       MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 2).toString());
+       MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 4).toString());
+//                           
+    
+        ResultSet cadete = null;
+            try {
+                cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            try {
+                if( cadete.first()){
+                    int idcadete = cadete.getInt("idcadete");
+                    int doc = cadete.getInt("dni");
+                       MC.dniant = Integer.parseInt(MC.jTextField1DNI1.getText());
+                       MC.idcade=idcadete;
+//                       JOptionPane.showMessageDialog(null,Integer.toString(MC.dniant));
+//                       JOptionPane.showMessageDialog(null,Integer.toString(MC.idcade));
+  
+                       //MC.idcade=Integer.parseInt(MC.jTextField1DNI1.getText());
+
+                    }
+            } catch (SQLException ex) {
+                Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
+  
+        }else{
+      JOptionPane.showMessageDialog(this,  " No Seleccionó ningun cadete", "", JOptionPane.ERROR_MESSAGE);
+        }  
+       
+  
+
+    }//GEN-LAST:event_jButton2ModificarActionPerformed
+//
+//     DefaultTableModel modelo = (DefaultTableModel) jTable1DatosPersonalesEmp.getModel();
+//        int fila = jTable1DatosPersonalesEmp.getSelectedRow();
+//        if(jTable1DatosPersonalesEmp.getSelectedRows().length > 0){
+//         modificarCadete MC = new modificarCadete();        
+//        MC.dniant=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 3);
+//        MC.idcade=(int) jTable1DatosPersonalesEmp.getValueAt(fila, 0);
+////       JOptionPane.showMessageDialog(null, Integer.toString(MC.idcade));
+//       //if(fila>=0){
+//       MC.setVisible(true);
+//       this.setVisible(false);           
+//              
+//       MC.jTextField1DNI1.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 3).toString());
+//       MC.jTextField1Nombre.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 1).toString());
+//       MC.jTextField1Apellido.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 2).toString());
+//       MC.jTextField1Domicilio.setText(jTable1DatosPersonalesEmp.getValueAt(fila, 4).toString());
+//                 
+////       }else{
+////       JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
+//        }     else{
+//      JOptionPane.showMessageDialog(null, "fila no seleccionada");}   
+    
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
 
-        if(jTable1DatosPersonalesEmp.getSelectedRows().length > 0){
-              
         Cadete CA = new Cadete();
+        int filaseleccionada = jTable1DatosPersonalesEmp.getSelectedRow();
+         
+        if(filaseleccionada >= 0){           
+       
         try {
-           
+            jTextField1Buscar.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 3).toString());
             CA.eliminardni(Integer.parseInt(jTextField1Buscar.getText()));
         } catch (SQLException ex) {
             Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,14 +350,18 @@ public class interfazABMCadete extends javax.swing.JFrame {
           //  Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
        // }
         JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
-       
-                        
-       
-    }
-else{
-           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun cadete", "AlToque Fast Food", JOptionPane.ERROR_MESSAGE);
+        
+//        int cantidadfilas=jTable1DatosPersonalesEmp.getSelectedRowCount();
+//        while(i<=cantidadfilas)  for(int i=cantidadfilas-1;i>=0;i--){
+//        modelo.removeRow(i);
+//        }
+        
+                          
+    }else{
+           
+           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun cadete", "", JOptionPane.ERROR_MESSAGE);
        }
-    
+//             cargarTablaCadetes();
     //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
     
@@ -339,4 +426,8 @@ else{
     public javax.swing.JTable jTable1DatosPersonalesEmp;
     private javax.swing.JTextField jTextField1Buscar;
     // End of variables declaration//GEN-END:variables
+
+    private int setText(Object valueAt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

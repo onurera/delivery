@@ -388,6 +388,7 @@ public class Cadete {
         return rsDatos;
 
     }
+    
         public ResultSet buscarParaFiltrar(String valor) throws ClassNotFoundException {
         try {
             Connection cn = Conexion.Cadena();

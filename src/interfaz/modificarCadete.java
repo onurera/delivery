@@ -261,6 +261,9 @@ ResultSet cad = null;
                 if(verifcarCampos()){
                 Co.modificar2(idcade,dni,nombre,apellido,domicilio);
                 limpiarVariables();
+                JFrame volverABMCadete = new interfazABMCadete();
+                volverABMCadete.setVisible(true);
+                setVisible(false);
                  }
                     }catch (NumberFormatException | HeadlessException ex)
                     {
@@ -268,14 +271,18 @@ ResultSet cad = null;
                     }
                  }
             }else{
+                
                        if(dni==dniant){
-                            //JOptionPane.showMessageDialog(null,Integer.toString(dniant));
+//                            JOptionPane.showMessageDialog(null,Integer.toString(dniant));
                        if(validarCampos()){
                     
                     try{
                 if(verifcarCampos()){
                 Co.modificar2(idcade,dni,nombre,apellido,domicilio);
                 limpiarVariables();
+                JFrame volverABMCadete = new interfazABMCadete();
+                volverABMCadete.setVisible(true);
+                setVisible(false);
                  }
                     }catch (NumberFormatException | HeadlessException ex)
                     {
@@ -284,12 +291,31 @@ ResultSet cad = null;
                  }
                        }else{
                         JOptionPane.showMessageDialog(this, "El dni ingresado pertenese a un cadete ya existe "," ", JOptionPane.INFORMATION_MESSAGE);
+                        JFrame volverABMCadete = new interfazABMCadete();
+                        volverABMCadete.setVisible(true);
+                        setVisible(false);
                        }
             }  } catch (SQLException ex) {
             Logger.getLogger(modificarCadete.class.getName()).log(Level.SEVERE, null, ex);
         }
      
     }//GEN-LAST:event_jButton2AceptarActionPerformed
+
+    public int getDniant() {
+        return dniant;
+    }
+
+    public void setDniant(int dniant) {
+        this.dniant = dniant;
+    }
+
+    public int getIdcade() {
+        return idcade;
+    }
+
+    public void setIdcade(int idcade) {
+        this.idcade = idcade;
+    }
 
     private void jButton1CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CancelarActionPerformed
         // TODO add your handling code here:
@@ -382,5 +408,5 @@ ResultSet cad = null;
         jTextField1Domicilio.setText("");
         jTextField1DNI1.setText("");
     }
-
+    
 }
