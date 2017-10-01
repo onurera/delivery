@@ -212,5 +212,35 @@ public ResultSet buscar() throws ClassNotFoundException {
         return rsDatos;
 
     }
+    
+    public int modificarDatos(int idCliente,String apellido,String nombre, String domicilio,int zonas) throws ClassNotFoundException{
+    try {
+            Connection cn = Conexion.Cadena();
 
+            String SQL = "UPDATE Cliente SET nombre=?,apellido=?,zona=?,domicilio=? where idCliente=? and where estadoCliente=1";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+           
+//            psPrepSencencias.setInt(1, telefono);
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);            
+// psPrepSencencias.setInt(3, tipo);
+            //psPrepSencencias.setInt(1, contraseña);
+            // psPrepSencencias.setString(2, mail);
+            psPrepSencencias.setInt(3, zonas);
+            psPrepSencencias.setString(4,domicilio );
+            //psPrepSencencias.setInt(8, estadoCadete);
+            psPrepSencencias.setInt(5, idCliente);
+
+            //ejecuto sentencia
+            idCliente = psPrepSencencias.executeUpdate();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return idCliente;
+    }
+    
 }

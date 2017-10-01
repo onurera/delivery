@@ -38,7 +38,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
         initComponents();
         jTextFieldNumerodePedido.setEditable(false);
         jTextFieldNumerodePedido.setEnabled(false);
-        String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas","Zona","Precio Zona"};
+        String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas","Zona","Domicilio"};
         tablaClienteyPedido = new DefaultTableModel();
         tablaDetalleComidas = new DefaultTableModel();
         jTable1TablaClientePedido.setModel(tablaClienteyPedido);
@@ -396,7 +396,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
                               precioZona=zona.getRsDatos().getFloat("precio");}
                            if(idCli== clie.getInt("idCliente")){
                        
-   tablaClienteyPedido.addRow(new Object[]{tele.getInt("numero"),clie.getString("nombre"),clie.getString("apellido"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas,precioZona});
+   tablaClienteyPedido.addRow(new Object[]{tele.getInt("numero"),clie.getString("apellido"),clie.getString("nombre"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas,clie.getString("domicilio")});
     
     }
 
@@ -407,43 +407,46 @@ public class ModificarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-                
-             int telefono = 0;   
-             String nombre = null;
-             String apellido = null;
-             float precioZona = 0;
-             int zon=0;
+                modificarDatosCliente modificarDtsClient = new modificarDatosCliente();
+            
         int posicion= jTable1TablaClientePedido.getSelectedRow();
         if(jTable1TablaClientePedido.getSelectedRows().length > 0){
                  int i=0;
-                 while(i <=tablaClienteyPedido.getRowCount()){
+                 while(i <tablaClienteyPedido.getRowCount()){
                      if (i==posicion){
-                          telefono =(int)tablaClienteyPedido.getValueAt(posicion, 0);
-                          nombre= (String)tablaClienteyPedido.getValueAt(posicion, 1);
-                          apellido = (String)tablaClienteyPedido.getValueAt(posicion, 2);
+                         modificarDtsClient.jTextField4modficiarTelef.setText(tablaClienteyPedido.getValueAt(posicion, 0).toString());
+                         modificarDtsClient.jTextField1modfNombCli.setText(tablaClienteyPedido.getValueAt(posicion, 1).toString());
+                         modificarDtsClient.jTextField2modfApellCli.setText(tablaClienteyPedido.getValueAt(posicion, 2).toString());
+                         modificarDtsClient.jTextField1modDomicilio.setText(tablaClienteyPedido.getValueAt(posicion, 6).toString());
+                          
+//                         modificarDtsClient.setTelefono((int)tablaClienteyPedido.getValueAt(posicion, 0));
+//                          telefono =;
+//                         modificarDtsClient.setNombre(tablaClienteyPedido.getValueAt(posicion, 1).toString());
+//                          nombre= ;
+//                         modificarDtsClient.setApellido(tablaClienteyPedido.getValueAt(posicion, 2).toString());
+//                          apellido = ;
                          
                           if(tablaClienteyPedido.getValueAt(posicion, 5).equals("centrica")){
-                              precioZona=(float)tablaClienteyPedido.getValueAt(posicion, 6);
-                              zon=1;
+                              modificarDtsClient.jTextField3modfZona.setText("centrica");
+                              
+//                              modificarDtsClient.setPrecioZona((float)tablaClienteyPedido.getValueAt(posicion, 6));
+//                              precioZona=;
+//                             modificarDtsClient.setZona(1);
                           }
                           else
-                              precioZona=(float)tablaClienteyPedido.getValueAt(posicion, 6);
-                     }
-                     i=i+1;
-                 }
-                 modificarDatosCliente modificarDtsClient = new modificarDatosCliente();
-                 modificarDtsClient.setTelefono(telefono);
-                 modificarDtsClient.setNombre(nombre);
-                 modificarDtsClient.setApellido(apellido);
-                 modificarDtsClient.setZona(zon);
-                 modificarDtsClient.setPrecioZona(precioZona);
-                 modificarDtsClient.setVisible(true);
+                          { 
+//                              modificarDtsClient.setPrecioZona((float)tablaClienteyPedido.getValueAt(posicion, 6));
+//                             modificarDtsClient.setZona(0);
+                          }
+                          i=i+1;
+                         }                          }
+                
         }
         else 
         {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione la fila que desa modificar", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+        modificarDtsClient.setVisible(true);
     }//GEN-LAST:event_jButtonModificarActionPerformed
         
     

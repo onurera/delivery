@@ -259,9 +259,7 @@ public class Comida {
 
     }
 
-    public int modificar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     /**
      * @return the estado

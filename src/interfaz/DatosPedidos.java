@@ -558,7 +558,7 @@ int idPedido=0;
             }
             float total = importeTotal+ importeZon;
             ped.setEmitida(1);
-            ped.setTerminado(1);
+            
             ped.setTotal(total);
             ped.setEstadoPedido(1);
             idPedido = ped.Insertar();

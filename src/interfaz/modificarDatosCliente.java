@@ -9,7 +9,13 @@ package interfaz;
  *
  * @author LucianoG
  */
-public final class modificarDatosCliente extends javax.swing.JFrame {
+import Datos.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+public final  class modificarDatosCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form modificarDatosCliente
@@ -31,7 +37,7 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
     public modificarDatosCliente() {
         initComponents();
         setLocationRelativeTo(null);
-        mostrarParamodificar();
+        tenerTelefonoAnterior();
     }
 
     public int getTelefono() {
@@ -83,11 +89,11 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
         jTextField3modfZona = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextField4modficiarTelef = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5modFprecioZona = new javax.swing.JTextField();
         jButton1volverAModificar = new javax.swing.JButton();
         jButton2AceptarModificar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField1modDomicilio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,8 +104,6 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
         jLabel3.setText("Zona:");
 
         jLabel4.setText("Telefono:");
-
-        jLabel5.setText("Precio zona:");
 
         jButton1volverAModificar.setText("Volver");
 
@@ -113,6 +117,8 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(204, 102, 0));
         jLabel6.setText("Modificar datos del Cliente");
 
+        jLabel7.setText("Domicilio: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,26 +127,27 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton1volverAModificar)
+                                .addComponent(jLabel2)))
                         .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2AceptarModificar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField4modficiarTelef, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField5modFprecioZona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                .addComponent(jTextField3modfZona, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField3modfZona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                                 .addComponent(jTextField2modfApellCli, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1modfNombCli, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField4modficiarTelef, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addComponent(jButton1volverAModificar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel6)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                                .addComponent(jTextField1modfNombCli, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextField1modDomicilio)
+                            .addComponent(jButton2AceptarModificar))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,39 +169,72 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField2modfApellCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField1modDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3modfZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5modFprecioZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1volverAModificar)
                     .addComponent(jButton2AceptarModificar))
-                .addGap(26, 26, 26))
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2AceptarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarModificarActionPerformed
-        
-        
-        
-        
-    }//GEN-LAST:event_jButton2AceptarModificarActionPerformed
-    public void mostrarParamodificar(){
-        
-        jTextField4modficiarTelef.setText(String.valueOf(getTelefono()));
-        jTextField1modfNombCli.setText(getNombre());
-        jTextField2modfApellCli.setText(getApellido());
-        jTextField3modfZona.setText(String.valueOf(getZona()));
-        jTextField5modFprecioZona.setText(String.valueOf(getPrecioZona()));
-    
+    public void tenerTelefonoAnterior(){
+        jTextField4modficiarTelef.getText();
+       
     }
+    
+    private void jButton2AceptarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2AceptarModificarActionPerformed
+        Cliente cli = new Cliente();
+        Telefonos tel = new Telefonos();
+        String apellido,nombre,domicilio;
+        int zonas=0;
+        apellido=jTextField2modfApellCli.getText();
+        nombre= jTextField1modfNombCli.getText(); 
+        domicilio= jTextField1modDomicilio.getText();
+        if(verificar()){
+        int telefono= Integer.parseInt(jTextField4modficiarTelef.getText());
+        try {
+              ResultSet buscarTele = tel.BuscarX(Integer.parseInt(jTextField4modficiarTelef.getText()));
+              if(buscarTele.first()){
+                 ResultSet buscarCli = cli.BuscarXConId(buscarTele.getInt("idCliente"));
+                 if(buscarCli.first()){
+                     if(jTextField3modfZona.getText().equals("centrica"))
+                         zonas=1;
+                     cli.modificarDatos(buscarTele.getInt("idCliente"),apellido,nombre,domicilio,zonas);
+                     tel.modificarTelefono(buscarTele.getInt("idCliente"), buscarTele.getInt("idTelefono"),telefono );
+                     JOptionPane.showMessageDialog(this, "La modificacion fue un exito", "Advertencia", JOptionPane.INFORMATION_MESSAGE);          
+                 }
+                 else 
+                  cli.modificarDatos(buscarTele.getInt("idCliente"),apellido,nombre,domicilio,zonas);
+                 JOptionPane.showMessageDialog(this, "La modificacion fue un exito", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+              }
+          } catch (ClassNotFoundException | SQLException ex) {
+              Logger.getLogger(modificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+        else {
+        JOptionPane.showMessageDialog(this, "Por favor complete los campos restantes", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+        }
+        this.disable();
+    }//GEN-LAST:event_jButton2AceptarModificarActionPerformed
+//    public void mostrarParamodificar(){
+//        
+//       
+//        jTextField4modficiarTelef.setText(String.valueOf(getTelefono()));
+//        jTextField1modfNombCli.setText(getNombre());
+//        jTextField2modfApellCli.setText(getApellido());
+//        jTextField3modfZona.setText(String.valueOf(getZona()));
+//        
+//    
+//    }
     /**
      * @param args the command line arguments
      */
@@ -229,6 +269,55 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
             }
         });
     }
+    public boolean verificar(){
+        
+        
+        try{
+            //Long.parseLong(jTextFieldTelefono.getText());
+            if(Integer.parseInt(jTextField4modficiarTelef.getText()) <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El telefono No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextField1modfNombCli.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextField2modfApellCli.getText().length() <=0 ){
+                JOptionPane.showMessageDialog(this, "ERROR: El apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            //VER ESTO NO FUNCIONA
+//            if ((jComboBoxTipoDoc.getSelectedIndex())<0 ){
+//                JOptionPane.showMessageDialog(this, "-. ERROR: Debe seleccionar una opcion de tipo documento", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//                return false;        
+//            }
+            
+            if(jTextField1modDomicilio.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+          
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "ERROR: El Telefono No debe ser vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+//    if(jTextField4modficiarTelef.getText().equals(""))
+//    {
+//        if(jTextField1modfNombCli.getText().equals("")){
+//            if(jTextField2modfApellCli.getText().equals(""))
+//            {
+//                if(jTextField1modDomicilio.getText().equals("")){
+//                    if(jTextField3modfZona.getText().equals("")){
+//                    
+//                    }
+//                }
+//            }
+//        }
+//    }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1volverAModificar;
@@ -237,12 +326,12 @@ public final class modificarDatosCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1modfNombCli;
-    private javax.swing.JTextField jTextField2modfApellCli;
-    private javax.swing.JTextField jTextField3modfZona;
-    private javax.swing.JTextField jTextField4modficiarTelef;
-    private javax.swing.JTextField jTextField5modFprecioZona;
+    private javax.swing.JLabel jLabel7;
+    public static javax.swing.JTextField jTextField1modDomicilio;
+    public static javax.swing.JTextField jTextField1modfNombCli;
+    public static javax.swing.JTextField jTextField2modfApellCli;
+    public static javax.swing.JTextField jTextField3modfZona;
+    public static javax.swing.JTextField jTextField4modficiarTelef;
     // End of variables declaration//GEN-END:variables
 }
