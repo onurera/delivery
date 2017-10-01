@@ -350,11 +350,18 @@ public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
           //  Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
        // }
         JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
-        
+            try {
+                cargarTablaCadetes();
+                jTextField1Buscar.setText("");
 //        int cantidadfilas=jTable1DatosPersonalesEmp.getSelectedRowCount();
 //        while(i<=cantidadfilas)  for(int i=cantidadfilas-1;i>=0;i--){
 //        modelo.removeRow(i);
 //        }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
                           
     }else{

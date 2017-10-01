@@ -118,12 +118,31 @@ public class detallePedido {
         return idPedido;
     }
 
-    public ResultSet BuscarDetalles(int idPe) throws ClassNotFoundException {
+    public ResultSet BuscarDetalles(String idPe) throws ClassNotFoundException {
 
         try {
             Connection cn = Conexion.Cadena();
 
             String SQL = "Select * from detallePedido where idPedido = '" + idPe + "'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            
+            
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(detallePedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rsDatos;
+    }
+     public ResultSet BuscarComida(int idco) throws ClassNotFoundException {
+
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Comida where idComida = '" + idco + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
