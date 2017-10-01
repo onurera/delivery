@@ -47,6 +47,7 @@ public class GestionarComidas extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableComidas = new javax.swing.JTable();
+        jButton1VolverMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +123,8 @@ public class GestionarComidas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableComidas);
 
+        jButton1VolverMenu.setText("Volver al Menu");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,6 +141,10 @@ public class GestionarComidas extends javax.swing.JFrame {
                         .addComponent(jButtonEliminar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(jButton1VolverMenu)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +158,9 @@ public class GestionarComidas extends javax.swing.JFrame {
                     .addComponent(jButtonEliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1VolverMenu)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -275,6 +284,7 @@ public class GestionarComidas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1VolverMenu;
     private javax.swing.JButton jButtonAgregarComida;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;

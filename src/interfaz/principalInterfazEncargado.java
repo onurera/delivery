@@ -145,7 +145,7 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1PedidoActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButton4ComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ComidasActionPerformed

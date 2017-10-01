@@ -117,7 +117,7 @@ public class Telefonos {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Telefonos where numero  = '" + tel + "'";
+            String SQL = "Select * from Telefonos where numero  = " + tel ;
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -140,7 +140,7 @@ public class Telefonos {
         try {
             Connection cn = Conexion.Cadena();
 
-             psPrepSencencias = cn.prepareStatement("UPDATE Telefonos SET numero=? where idCliente=? and where idTelefono=?");
+             psPrepSencencias = cn.prepareStatement("UPDATE Telefonos SET numero=? where idCliente=? and  idTel=?");
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             psPrepSencencias.setInt(1, numtelefo);
             psPrepSencencias.setInt(2, idCli);

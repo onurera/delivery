@@ -187,7 +187,9 @@ public final  class modificarDatosCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void tenerTelefonoAnterior(){
-        jTextField4modficiarTelef.getText();
+          String text = jTextField4modficiarTelef.getText();
+          int telefonos = Integer.parseInt(text);
+          setTelefono(telefonos);
        
     }
     
@@ -209,12 +211,13 @@ public final  class modificarDatosCliente extends javax.swing.JFrame {
                      if(jTextField3modfZona.getText().equals("centrica"))
                          zonas=1;
                      cli.modificarDatos(buscarTele.getInt("idCliente"),apellido,nombre,domicilio,zonas);
-                     tel.modificarTelefono(buscarTele.getInt("idCliente"), buscarTele.getInt("idTelefono"),telefono );
+                     tel.modificarTelefono(buscarTele.getInt("idCliente"), buscarTele.getInt("idTel"),telefono );
                      JOptionPane.showMessageDialog(this, "La modificacion fue un exito", "Advertencia", JOptionPane.INFORMATION_MESSAGE);          
                  }
-                 else 
+                 else {
                   cli.modificarDatos(buscarTele.getInt("idCliente"),apellido,nombre,domicilio,zonas);
                  JOptionPane.showMessageDialog(this, "La modificacion fue un exito", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                 }
               }
           } catch (ClassNotFoundException | SQLException ex) {
               Logger.getLogger(modificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,7 +226,7 @@ public final  class modificarDatosCliente extends javax.swing.JFrame {
         else {
         JOptionPane.showMessageDialog(this, "Por favor complete los campos restantes", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
         }
-        this.disable();
+        this.dispose();
     }//GEN-LAST:event_jButton2AceptarModificarActionPerformed
 //    public void mostrarParamodificar(){
 //        
