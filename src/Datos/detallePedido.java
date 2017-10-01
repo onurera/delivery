@@ -123,7 +123,7 @@ public class detallePedido {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from detallePedido where idPedido like '" + idPe + "'";
+            String SQL = "Select * from detallePedido where idPedido = '" + idPe + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);

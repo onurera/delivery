@@ -9,13 +9,43 @@ package interfaz;
  *
  * @author maximiliano
  */
-public class ModificarPedidos extends javax.swing.JFrame {
+import Datos.Cliente;
+import Datos.Comida;
+import Datos.Pedido;
+import Datos.detallePedido;
+import Datos.Telefonos;
+import Datos.Zona;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
+public class ModificarPedidos extends javax.swing.JFrame {
+    Telefonos tel = new Telefonos();
+    Cliente cli = new Cliente();
+    Zona zona = new Zona();
+    Pedido ped = new Pedido();
+    Comida com = new Comida();
+    detallePedido detalleped = new detallePedido();
+    DefaultTableModel tablaClienteyPedido;
+    DefaultTableModel tablaDetalleComidas;
     /**
      * Creates new form ModificarPedidos
      */
     public ModificarPedidos() {
         initComponents();
+        jTextFieldNumerodePedido.setEnabled(false);
+        String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas","Zona","Precio Zona"};
+        tablaClienteyPedido = new DefaultTableModel();
+        tablaDetalleComidas = new DefaultTableModel();
+        jTable1TablaClientePedido.setModel(tablaClienteyPedido);
+        
+        tablaClienteyPedido.setColumnIdentifiers(cabecera);
+        String cabecera2 [] ={"idComida","Descripcion","Cantidad","Precio Unitario","Precio Total"};
+        jTable3TablaComidaCliente.setModel(tablaDetalleComidas);
+        tablaDetalleComidas.setColumnIdentifiers(cabecera2);
     }
 
     /**
@@ -27,16 +57,39 @@ public class ModificarPedidos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabelNumerodePedido = new javax.swing.JLabel();
         jTextFieldNumerodePedido = new javax.swing.JTextField();
         jLabelTelefono = new javax.swing.JLabel();
         jTextFieldTelefono = new javax.swing.JTextField();
         jLabelComentario = new javax.swing.JLabel();
+        jButton1BuscarXTelefono = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
+        jButton1VolverAtras = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1TablaClientePedido = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3TablaComidaCliente = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +99,20 @@ public class ModificarPedidos extends javax.swing.JFrame {
 
         jLabelTelefono.setText("Telefono:");
 
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
+
         jLabelComentario.setText("(*)Para Buscar el pedido ingrese el codigo del pedido o el telefono del cliente ");
+
+        jButton1BuscarXTelefono.setText("buscar");
+        jButton1BuscarXTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1BuscarXTelefonoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,11 +130,13 @@ public class ModificarPedidos extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelTelefono)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1BuscarXTelefono))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addComponent(jLabelComentario)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,56 +148,124 @@ public class ModificarPedidos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTelefono)
-                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1BuscarXTelefono))
+                .addGap(26, 26, 26)
                 .addComponent(jLabelComentario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonModificar.setText("Modificar");
+        jButtonModificar.setText("Modificar Cliente");
 
         jButtonEliminar.setText("Eliminar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jButton1VolverAtras.setText("volver");
+        jButton1VolverAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1VolverAtrasActionPerformed(evt);
+            }
+        });
+
+        jTable1TablaClientePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Telefono Cliente", "Nombre Cliente", "Apellido Cliente", "fechas", "horas", "Zona", "precioZona"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1TablaClientePedido);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 34, Short.MAX_VALUE))
+        );
+
+        jLabel1.setText("Clientes solicitados");
+
+        jTable3TablaComidaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Telefono Cliente", "Apellido y Nombre Cliente", "Fecha", "Hora"
+                "idComida", "Descripcion", "Cantidad", "precioUnitario", "precioTotal"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jTable3TablaComidaCliente);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        jLabel2.setText("Comidas de los clientes ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(227, 227, 227)
-                .addComponent(jButtonModificar)
-                .addGap(93, 93, 93)
-                .addComponent(jButtonEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jButton1VolverAtras)
+                        .addGap(81, 81, 81)
+                        .addComponent(jButtonModificar)
+                        .addGap(93, 93, 93)
+                        .addComponent(jButtonEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,15 +275,98 @@ public class ModificarPedidos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
-                    .addComponent(jButtonEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButton1VolverAtras))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1VolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1VolverAtrasActionPerformed
+        GestionarPedidos volverAtras = new GestionarPedidos();
+        volverAtras.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1VolverAtrasActionPerformed
+
+    private void jButton1BuscarXTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BuscarXTelefonoActionPerformed
+        
+        // Tengo que buscar el telefono, luego buscar al cliente, 
+            // una ves que lo encuentor al cliente, traigo los datos personal para concer al cliente y
+            // traer la zona y su precio. Despues ir a pedido, traer sus datos relacionado
+            // con los datos de ése cliente. Luego para finalizar traer todos los detalle de sus pedidos
+            // con sus Precio unitario y Total.
+        // 2.- Tener en cuenta, que tendré que realizar 2 modulos,
+        // a- modulo para cargar tabla Cliente y b-modulo cargar detalle comida
+            String zonas;
+           float precioZona;
+           
+           
+        try {
+           ResultSet telefonos = tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
+            if(telefonos.first()){
+              int idCli = telefonos.getInt("idCliente");
+                  ResultSet clientes= cli.BuscarXConId(idCli);
+                  if (clientes.first()){
+                      
+                       if(clientes.getInt("zona")==1){
+                           zonas="centrica";
+                           ResultSet zonaaa= zona.BuscarPorZona(zonas);
+                           if(zonaaa.first()){
+                               precioZona = zonaaa.getFloat("precio");
+                           }
+                       }else{ zonas="no centrica"; 
+                              precioZona=zona.getRsDatos().getFloat("precio");}
+                      ResultSet pedido= ped.BuscarXCliente(clientes.getInt("idCliente"));
+                      ResultSet detallePed = detalleped.BuscarDetalles(pedido.getInt("idPedido"));
+                      ResultSet comida= com.buscar();
+                      if(pedido.first()&& detallePed.first()&& comida.first()){
+                          if(idCli== clientes.getInt("idCliente")){
+                          
+   tablaClienteyPedido.addRow(new Object[]{telefonos.getInt("numero"),clientes.getString("nombre"),clientes.getString("apellido"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas});
+                          if(detallePed.getInt("idPedido")==pedido.getInt("idPedido")){
+                              do{ 
+                                      do{                                 
+                                          float precioTotal;
+  tablaDetalleComidas.addRow(new Object []{comida.getInt("idComida"),comida.getString("descripcion"),comida.getInt("cantidad"),comida.getFloat("precio"),precioTotal=comida.getInt("comida")*comida.getFloat("precio")});                                    
+                                      }while(comida.next());
+                                     }while(detallePed.next());
+                                  } 
+                          else{JOptionPane.showMessageDialog(this, "Id pedido no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                            }
+                          else{JOptionPane.showMessageDialog(this, "Id Cliente no son iguales ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      }
+                      else{JOptionPane.showMessageDialog(this, "id pedido, detalle y comida no se encontró ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      } 
+                 else{
+                      JOptionPane.showMessageDialog(this, "Id Cliente no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                  }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "telefono no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+             }
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+      
+    }//GEN-LAST:event_jButton1BuscarXTelefonoActionPerformed
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+        
+    
     /**
      * @param args the command line arguments
      */
@@ -184,14 +403,24 @@ public class ModificarPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1BuscarXTelefono;
+    private javax.swing.JButton jButton1VolverAtras;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelComentario;
     private javax.swing.JLabel jLabelNumerodePedido;
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1TablaClientePedido;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3TablaComidaCliente;
     private javax.swing.JTextField jTextFieldNumerodePedido;
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables

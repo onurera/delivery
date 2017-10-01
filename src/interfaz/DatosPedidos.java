@@ -9,6 +9,7 @@ package interfaz;
  *
  * @author NICOLAS
  */
+import Datos.Cadete;
 import Datos.Cliente;
 import Datos.Comida;
 import Datos.Zona;
@@ -26,9 +27,10 @@ import java.util.Date;
 import java.util.Vector;
 
 public class DatosPedidos extends javax.swing.JFrame {
-    
+    Telefonos tel= new Telefonos();
 DefaultTableModel tablaPedido;
 Pedido ped= new Pedido();
+int idTel=0;
  int idComida=0;
  int idDetalle=0;
 int idPedido=0;
@@ -94,9 +96,9 @@ int idPedido=0;
         tablaPedido.setColumnIdentifiers(cabecera);
         String fyh= fechayHora();
        jLabelFechaYHora.setText(fyh);
-       
+       setLocationRelativeTo(null);
        jLabelLugardeEnvio.setEnabled(false);
-       
+        cargarMenuItemsCadete();
     }
     public String fechayHora(){
         FechayHora= Calendar.getInstance();
@@ -141,6 +143,8 @@ int idPedido=0;
         jLabel3 = new javax.swing.JLabel();
         jTextField1ImporteZOna = new javax.swing.JTextField();
         jTextField1Zona = new javax.swing.JTextField();
+        jButtonAgregarTelefono = new javax.swing.JButton();
+        jButton2LimpiarTelefono = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelComida = new javax.swing.JLabel();
         jComboBoxComida = new javax.swing.JComboBox();
@@ -152,6 +156,8 @@ int idPedido=0;
         jLabelImportaTotal = new javax.swing.JLabel();
         jTextFieldImporteTotal = new javax.swing.JTextField();
         jButtonEliminar = new javax.swing.JButton();
+        jComboBox1SeleccionarCadete = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonConfirmarPedido = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -251,64 +257,71 @@ int idPedido=0;
             }
         });
 
+        jButtonAgregarTelefono.setText("Agregar telefono");
+        jButtonAgregarTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarTelefonoActionPerformed(evt);
+            }
+        });
+
+        jButton2LimpiarTelefono.setText("Borrar Telefono");
+        jButton2LimpiarTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2LimpiarTelefonoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelClienteLayout = new javax.swing.GroupLayout(jPanelCliente);
         jPanelCliente.setLayout(jPanelClienteLayout);
         jPanelClienteLayout.setHorizontalGroup(
             jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClienteLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClienteLayout.createSequentialGroup()
-                        .addComponent(jButtonNuevoCliente)
-                        .addGap(107, 107, 107)))
-                .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClienteLayout.createSequentialGroup()
-                            .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabelApellidoyNombre)
-                                .addComponent(jLabelTelefono)
-                                .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabelDomicilio)))
-                            .addGap(25, 25, 25))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClienteLayout.createSequentialGroup()
-                            .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabelLugardeEnvio))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelClienteLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabelZona)
-                        .addGap(32, 32, 32)))
+                        .addGap(56, 56, 56)
+                        .addComponent(jButtonNuevoCliente)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelZona)
+                    .addComponent(jLabelTelefono)
+                    .addComponent(jLabelApellidoyNombre)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelDomicilio)
+                    .addComponent(jLabelLugardeEnvio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField1Zona, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1ImporteZOna, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextFieldLugardeEnvio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1ApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldApellidoyNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldTelefonoClienteBuscado, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(61, 61, 61))
+                    .addGroup(jPanelClienteLayout.createSequentialGroup()
+                        .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldLugardeEnvio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1ApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldApellidoyNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldTelefonoClienteBuscado, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAgregarTelefono)
+                            .addComponent(jButton2LimpiarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanelClienteLayout.setVerticalGroup(
             jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelClienteLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldTelefonoClienteBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTelefono))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelClienteLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonNuevoCliente)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelClienteLayout.createSequentialGroup()
+                        .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldTelefonoClienteBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTelefono))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelApellidoyNombre)
                             .addComponent(jTextFieldApellidoyNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -333,6 +346,11 @@ int idPedido=0;
                             .addComponent(jLabel3)
                             .addComponent(jTextField1ImporteZOna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(22, Short.MAX_VALUE))))
+            .addGroup(jPanelClienteLayout.createSequentialGroup()
+                .addComponent(jButtonAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2LimpiarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido"));
@@ -394,46 +412,60 @@ int idPedido=0;
             }
         });
 
+        jComboBox1SeleccionarCadete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Seleccione --" }));
+        jComboBox1SeleccionarCadete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1SeleccionarCadeteActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Elija su cadete");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabelComida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabelCantidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addGap(61, 61, 61)
-                .addComponent(jButtonAgregar)
-                .addGap(73, 73, 73))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelImportaTotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonEliminar)
-                .addGap(67, 67, 67))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelImportaTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminar)
+                        .addGap(67, 67, 67))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelComida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCantidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAgregar)
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBox1SeleccionarCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelComida)
                     .addComponent(jComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCantidad)
                     .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAgregar))
-                .addGap(23, 23, 23)
+                    .addComponent(jButtonAgregar)
+                    .addComponent(jComboBox1SeleccionarCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +476,7 @@ int idPedido=0;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("volver");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
@@ -465,24 +497,22 @@ int idPedido=0;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonCancelar)
-                                .addGap(58, 58, 58)
-                                .addComponent(jButtonConfirmarPedido)))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelFechaYHora, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(jButtonConfirmarPedido)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelFechaYHora, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(jPanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,9 +521,9 @@ int idPedido=0;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabelFechaYHora, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -534,16 +564,12 @@ int idPedido=0;
             idPedido = ped.Insertar();
            // Cargar detalles 
              traerDatosTabla(idPedido);
+            
          }
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
+    } catch (ClassNotFoundException | SQLException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
     }
-      
-        ConfirmarPedidos Confirmar = new ConfirmarPedidos();
-        Confirmar.setVisible(true);
-        this.setVisible(false);
+              
     }//GEN-LAST:event_jButtonConfirmarPedidoActionPerformed
     public void traerDatosTabla(int idped) throws SQLException{          
            
@@ -557,10 +583,17 @@ int idPedido=0;
                detallePedido.setCantidad(Integer.parseInt(Cantidad));
                detallePedido.setNumLinea(i);
                idDetalle= detallePedido.Insertar();
-               i++;
-        }
+             }
             
         }
+
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
     
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
             //agregar los clientes faltan!
@@ -598,6 +631,20 @@ int idPedido=0;
         }
             return imporTotal;
         }
+    private void cargarMenuItemsCadete(){
+    
+        jComboBox1SeleccionarCadete.removeAllItems();
+        jComboBox1SeleccionarCadete.addItem("-- Seleccione --");
+        try {
+            Cadete cadete = new Cadete();
+            ResultSet rs = cadete.traerCadetes();
+            while(rs.next()){
+                jComboBox1SeleccionarCadete.addItem(String.valueOf(rs.getString(3) + rs.getString(4)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void jComboBoxComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxComidaActionPerformed
            
     }//GEN-LAST:event_jComboBoxComidaActionPerformed
@@ -608,34 +655,125 @@ int idPedido=0;
     }//GEN-LAST:event_jTextFieldImporteTotalActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-//       tablaPedido.removeRow(tablaPedido.getSelectedRow() );
+        int posicionBorrar= jTable1.getSelectedRow();
+        tablaPedido.removeRow(posicionBorrar);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTextField1ZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ZonaActionPerformed
+        jTextFieldLugardeEnvio.setText("Belgrano 679");
+    }//GEN-LAST:event_jTextField1ZonaActionPerformed
 
     private void jTextField1ApellidoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ApellidoClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ApellidoClienteActionPerformed
 
+    private void jTextFieldApellidoyNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoyNombreActionPerformed
+
+    }//GEN-LAST:event_jTextFieldApellidoyNombreActionPerformed
+
+    private void jTextFieldTelefonoClienteBuscadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoClienteBuscadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoClienteBuscadoActionPerformed
+
+    private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
+       Cliente cliente = new Cliente();
+        Telefonos telefono = new Telefonos();
+         
+        jTextFieldTelefonoClienteBuscado.requestFocus();
+        try{
+        if(verificarCampos()){
+            cliente.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
+            cliente.setApellido(jTextFieldApellidoyNombre.getText());
+            cliente.setNombre(jTextField1ApellidoCliente.getText());
+            cliente.setDomicilio(jTextFieldDomicilio.getText());
+            jTextFieldLugardeEnvio.setText("Belgrano 679");
+            cliente.setEstado(1);
+            if("centrica".equals(jTextField1Zona.getText()))
+            {
+                cliente.setZona(1);
+                
+            }
+            else 
+                cliente.setZona(0);
+            idCliente= cliente.Insertar();
+            telefono.setCliente(idCliente);
+            telefono.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
+            telefono.setEstado(1);
+            telefono.Insertar();
+            JOptionPane.showMessageDialog(this, "Se registro el Cliente ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            
+            limpiarVariables();
+            jTextFieldTelefonoClienteBuscado.requestFocus();
+        }
+             //un cliente puede tener uno o varios numeros de celulares y un numero de telefono.           
+           
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
+        /* 
+        Cliente cliente = new Cliente();
+        Telefonos telefono = new Telefonos();
+
+        jTextFieldTelefonoClienteBuscado.requestFocus();
+        try{
+            if(verificarCampos()){
+                cliente.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
+                cliente.setApellido(jTextFieldApellidoyNombre.getText());
+                cliente.setNombre(jTextField1ApellidoCliente.getText());
+                cliente.setDomicilio(jTextFieldDomicilio.getText());
+                jTextFieldLugardeEnvio.setText("Belgrano 679");
+                cliente.setEstado(1);
+                if("centrica".equals(jTextField1Zona.getText()))
+                {
+                    cliente.setZona(1);
+
+                }
+                else
+                cliente.setZona(0);
+                idCliente= cliente.Insertar();
+                JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+
+                limpiarVariables();
+                jTextFieldTelefonoClienteBuscado.requestFocus();
+            }
+            //un cliente puede tener uno o varios numeros de celulares y un numero de telefono.
+            telefono.setCliente(idCliente);
+            telefono.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
+            telefono.setEstado(1);
+            telefono.Insertar();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }*/
+        
+    }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
+
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-//Consultar por que el if del cliente.first no me funciona cuando ingreso un telefono que no existe
-            jButtonNuevoCliente.setEnabled(false);
+        //Consultar por que el if del cliente.first no me funciona cuando ingreso un telefono que no existe
+               jButtonNuevoCliente.setEnabled(false);
     try {
-        
-        ResultSet cliente= cli.buscarPorTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-        
-        if (cliente.first()){
+        // cambiar la forma de busqueda y hacerlo por la tabla de telefono
+ 
+           ResultSet telefonos= tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
+           if(telefonos.first()){
+              do{
+                  int idCli = telefonos.getInt("idCliente");
+                  ResultSet clientes= cli.BuscarXConId(idCli);
+                  if (clientes.first()){
          do{
-             if(Integer.parseInt(jTextFieldTelefono.getText())== cliente.getInt("telefono") ){
-            jTextFieldTelefonoClienteBuscado.setText(Integer.toString(cliente.getInt("telefono")));
+             if(idCli== clientes.getInt("idCliente")) {
+            jTextFieldTelefonoClienteBuscado.setText(Integer.toString(clientes.getInt("telefono")));
             jTextFieldTelefonoClienteBuscado.setEditable(false);
-            jTextFieldApellidoyNombre.setText(cliente.getString("nombre"));
+            jTextFieldApellidoyNombre.setText(clientes.getString("nombre"));
             jTextFieldApellidoyNombre.setEditable(false);
-            jTextField1ApellidoCliente.setText(cliente.getString("apellido"));
+            jTextField1ApellidoCliente.setText(clientes.getString("apellido"));
             jTextField1ApellidoCliente.setEditable(false);
-            jTextFieldDomicilio.setText(cliente.getString("domicilio"));
+            jTextFieldDomicilio.setText(clientes.getString("domicilio"));
             jTextFieldDomicilio.setEditable(false);
             jTextFieldLugardeEnvio.setText("Av Belgrano 420");
             jTextFieldLugardeEnvio.setEditable(false);
-            if(cliente.getInt("zona")==1)
+            if(clientes.getInt("zona")==1)
             {
                 jTextField1Zona.setText("centrica");
                 jTextField1Zona.setEditable(false);
@@ -657,22 +795,29 @@ int idPedido=0;
                 }
              }
              else{
-            
+                 JOptionPane.showMessageDialog(this, "No existe el cliente, por favor Registrelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
              }
-             idCliente= cliente.getInt("idCliente");
-         }while (cliente.next());
+             idCliente= clientes.getInt("idCliente");
+         }while (clientes.next());
           
         }
         else{
-        JOptionPane.showMessageDialog(this, "No existe el cliente, por favor Registrelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+        
         jButtonNuevoCliente.setEnabled(true);
         jButtonBuscar.setEnabled(false);
         jTextFieldTelefono.setText("");
         jTextFieldTelefonoClienteBuscado.requestFocus();
         }
-                //Consultar por que no me funciona el mensaje de error o buscar !
-       
+              }while(telefonos.next());
+          }
+           else{
+            jButtonNuevoCliente.setEnabled(true);
+            JOptionPane.showMessageDialog(this, "No existe el cliente, Incorporelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+               
+           }
         
+                //Consultar por que no me funciona el mensaje de error o buscar !
+              
         }
     catch (SQLException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -680,63 +825,108 @@ int idPedido=0;
     catch (ClassNotFoundException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
     }
-      
-    
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
-    
-    private void jTextFieldTelefonoClienteBuscadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoClienteBuscadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldTelefonoClienteBuscadoActionPerformed
+        /*jButtonNuevoCliente.setEnabled(false);
+        try {
 
-    private void jTextFieldApellidoyNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoyNombreActionPerformed
-        
-    }//GEN-LAST:event_jTextFieldApellidoyNombreActionPerformed
+            ResultSet cliente= cli.buscarPorTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
 
-    private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
-        Cliente cliente = new Cliente();
-        Telefonos telefono = new Telefonos();
-         
-        jTextFieldTelefonoClienteBuscado.requestFocus();
-        try{
-        if(verificarCampos()){
-            cliente.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
-            cliente.setApellido(jTextFieldApellidoyNombre.getText());
-            cliente.setNombre(jTextField1ApellidoCliente.getText());
-            cliente.setDomicilio(jTextFieldDomicilio.getText());
-            jTextFieldLugardeEnvio.setText("Belgrano 679");
-            cliente.setEstado(1);
-            if("centrica".equals(jTextField1Zona.getText()))
-            {
-                cliente.setZona(1);
-                
+            if (cliente.first()){
+                do{
+                    if(Integer.parseInt(jTextFieldTelefono.getText())== cliente.getInt("telefono") ){
+                        jTextFieldTelefonoClienteBuscado.setText(Integer.toString(cliente.getInt("telefono")));
+                        jTextFieldTelefonoClienteBuscado.setEditable(false);
+                        jTextFieldApellidoyNombre.setText(cliente.getString("nombre"));
+                        jTextFieldApellidoyNombre.setEditable(false);
+                        jTextField1ApellidoCliente.setText(cliente.getString("apellido"));
+                        jTextField1ApellidoCliente.setEditable(false);
+                        jTextFieldDomicilio.setText(cliente.getString("domicilio"));
+                        jTextFieldDomicilio.setEditable(false);
+                        jTextFieldLugardeEnvio.setText("Av Belgrano 420");
+                        jTextFieldLugardeEnvio.setEditable(false);
+                        if(cliente.getInt("zona")==1)
+                        {
+                            jTextField1Zona.setText("centrica");
+                            jTextField1Zona.setEditable(false);
+                        }else {jTextField1Zona.setText("no centrica");
+                            jTextField1Zona.setEditable(false);}
+                        ResultSet zon= zona.BuscarPorZona(jTextField1Zona.getText());
+                        if(zon.first()){
+
+                            if(jTextField1Zona.getText().equals(zon.getString("descripcion"))){
+                                importeZon= zon.getFloat("precio");
+                                jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
+                                jTextField1ImporteZOna.setEditable(false);
+
+                            }else{
+                                importeZon= zon.getFloat("precio");
+                                jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
+                                jTextField1ImporteZOna.setEditable(false);
+                            }
+                        }
+                    }
+                    else{
+
+                    }
+                    idCliente= cliente.getInt("idCliente");
+                }while (cliente.next());
+
             }
-            else 
-                cliente.setZona(0);
-            idCliente= cliente.Insertar();
-            JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-            
-            limpiarVariables();
-            jTextFieldTelefonoClienteBuscado.requestFocus();
+            else{
+                JOptionPane.showMessageDialog(this, "No existe el cliente, por favor Registrelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                jButtonNuevoCliente.setEnabled(true);
+                jButtonBuscar.setEnabled(false);
+                jTextFieldTelefono.setText("");
+                jTextFieldTelefonoClienteBuscado.requestFocus();
+            }
+            //Consultar por que no me funciona el mensaje de error o buscar !
+
         }
-             //un cliente puede tener uno o varios numeros de celulares y un numero de telefono.           
-            telefono.setCliente(idCliente);
-            telefono.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
-            telefono.setEstado(1);
-            telefono.Insertar();
+        catch (SQLException ex) {
+            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
+        */
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
-    private void jTextField1ZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ZonaActionPerformed
-      jTextFieldLugardeEnvio.setText("Belgrano 679");
-    }//GEN-LAST:event_jTextField1ZonaActionPerformed
-   
+    private void jButtonAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarTelefonoActionPerformed
+
+        Telefonos telefon= new Telefonos();
+
+        try {
+            ResultSet buscCli = cli.buscarPorTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+            if(buscCli.first()){
+                telefon.setCliente(buscCli.getInt("idCliente"));
+                telefon.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
+                idTel = telefon.Insertar();
+                JOptionPane.showMessageDialog(this, "Incorporado el nuevo Telefono del Cliente ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al agregar nuevo telefono  ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButtonAgregarTelefonoActionPerformed
+
+    private void jButton2LimpiarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2LimpiarTelefonoActionPerformed
+        jTextFieldTelefonoClienteBuscado.setText("");
+        jTextFieldTelefonoClienteBuscado.requestFocus();
+        jTextFieldTelefonoClienteBuscado.setEditable(true);
+    }//GEN-LAST:event_jButton2LimpiarTelefonoActionPerformed
+
+    private void jComboBox1SeleccionarCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1SeleccionarCadeteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1SeleccionarCadeteActionPerformed
+       
     /**
      * @param args the command line arguments
      */
@@ -775,17 +965,21 @@ int idPedido=0;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2LimpiarTelefono;
     private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonAgregarTelefono;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmarPedido;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonNuevoCliente;
+    private javax.swing.JComboBox jComboBox1SeleccionarCadete;
     private javax.swing.JComboBox jComboBoxComida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelApellidoyNombre;
     private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelComida;

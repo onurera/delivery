@@ -19,15 +19,16 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
     /**
      * Creates new form principalInterfazEncargado
      */
-    public principalInterfazEncargado(JFrame Padre, Usuarios user) {
+    public principalInterfazEncargado() {
         initComponents();
         this.setLocationRelativeTo(null);
     
     }
 
-    public principalInterfazEncargado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    public principalInterfazEncargado() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        
+//    }
 
     
     /**
@@ -45,7 +46,6 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
         jButton2Cadetes = new javax.swing.JButton();
         jButton3GenerarFact = new javax.swing.JButton();
         jButton4Comidas = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jButtonSalir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -143,13 +143,13 @@ public class principalInterfazEncargado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2Cadetes, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3GenerarFact, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4Comidas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();

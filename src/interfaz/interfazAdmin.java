@@ -15,14 +15,14 @@ public class interfazAdmin extends javax.swing.JFrame {
     /**
      * Creates new form interfazAdmin
      */
-    public interfazAdmin(JFrame Padre, Usuarios user) {
+    public interfazAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-    private interfazAdmin() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    private interfazAdmin() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author maximiliano
@@ -16,6 +18,7 @@ public class GestionarPedidos extends javax.swing.JFrame {
      */
     public GestionarPedidos() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -47,7 +50,7 @@ public class GestionarPedidos extends javax.swing.JFrame {
             }
         });
 
-        jButtonSalir.setText("Salir");
+        jButtonSalir.setText("volver ");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalirActionPerformed(evt);
@@ -86,8 +89,11 @@ public class GestionarPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
+       principalInterfazEncargado volverAtras = new principalInterfazEncargado();
+        volverAtras.setVisible(true);
+        this.setVisible(false);
+        
+        
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
@@ -100,6 +106,7 @@ public class GestionarPedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
         ModificarPedidos abrir= new ModificarPedidos();
         abrir.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButtonModificarPedidoActionPerformed
 
     /**

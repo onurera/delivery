@@ -177,9 +177,9 @@ public class Pedido {
 
     public int Insertar() throws SQLException {
         int idPedido = 0;
-        emitida = 0;
+        
         estadoPedido = 1;
-        terminado = 0;
+        
         // Inserta un contacto y devuelve su id 
         try {
             Connection cn = Conexion.Cadena();
@@ -294,5 +294,33 @@ public class Pedido {
         return rsDatos;
 
     }
+public ResultSet BuscarXCliente(int idCli) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
 
+            String SQL = "Select * from Pedido where idCliente = '" + idCli + "and estadoPedido = 1 '";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            do {
+                id= rsDatos.getInt("idPedido");
+                idCliente = rsDatos.getInt("idCliente");
+                lugarEnvio = rsDatos.getString("lugarEnvio");
+                fecha = rsDatos.getDate("fecha");
+                hora = rsDatos.getTime("hora");
+                zona = rsDatos.getInt("zona");
+                total = rsDatos.getFloat("total");
+                emitida = rsDatos.getInt("emitido");
+                estadoPedido = rsDatos.getInt("estadoPedido");
+                terminado = rsDatos.getInt("terminado");
+
+                //cn.commit();
+            } while (rsDatos.next());
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
 }
