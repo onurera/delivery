@@ -36,6 +36,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
      */
     public ModificarPedidos() {
         initComponents();
+        jTextFieldNumerodePedido.setEditable(false);
         jTextFieldNumerodePedido.setEnabled(false);
         String cabecera [] ={"Telefono","Nombre Cliente ","Apellido Cliente","Fecha","Horas","Zona","Precio Zona"};
         tablaClienteyPedido = new DefaultTableModel();
@@ -76,6 +77,8 @@ public class ModificarPedidos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3TablaComidaCliente = new javax.swing.JTable();
+        jButton1ModificarComida = new javax.swing.JButton();
+        jButton2EliminarPedido = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,6 +159,11 @@ public class ModificarPedidos extends javax.swing.JFrame {
         );
 
         jButtonModificar.setText("Modificar Cliente");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setText("Eliminar");
 
@@ -196,8 +204,8 @@ public class ModificarPedidos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,6 +229,10 @@ public class ModificarPedidos extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3TablaComidaCliente);
 
+        jButton1ModificarComida.setText("Modificar Comida");
+
+        jButton2EliminarPedido.setText("Eliminar Pedido");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -229,13 +241,23 @@ public class ModificarPedidos extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addComponent(jButton1ModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jButton2EliminarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1ModificarComida)
+                    .addComponent(jButton2EliminarPedido))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Comidas de los clientes ");
@@ -305,66 +327,89 @@ public class ModificarPedidos extends javax.swing.JFrame {
             // con sus Precio unitario y Total.
         // 2.- Tener en cuenta, que tendré que realizar 2 modulos,
         // a- modulo para cargar tabla Cliente y b-modulo cargar detalle comida
-            String zonas;
-           float precioZona;
+            String zonas="";
+           float precioZona=0;
            
-           
-        try {
+           try {
            ResultSet telefonos = tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
             if(telefonos.first()){
               int idCli = telefonos.getInt("idCliente");
                   ResultSet clientes= cli.BuscarXConId(idCli);
                   if (clientes.first()){
+                      ResultSet pedido= ped.BuscarXCliente(clientes.getInt("idCliente"));
+                      if(pedido.first()){
+                      int idPedido= pedido.getInt("idPedido");
+                      jTextFieldNumerodePedido.setText(String.valueOf(idPedido));
+                      cargarClientes(clientes, zonas,precioZona,idCli,telefonos,pedido);
+                      ResultSet detallePed = detalleped.BuscarDetalles(idPedido);
+                                            
+                      cargarSuComida(detallePed, idPedido);
                       
-                       if(clientes.getInt("zona")==1){
+//                      else{JOptionPane.showMessageDialog(this, "comida no existente ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+
+//             else{JOptionPane.showMessageDialog(this, "detalle no existente ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}         
+                      }
+                                          
+                            }
+                          else{JOptionPane.showMessageDialog(this, "Id Cliente no son iguales ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      }
+                      else{JOptionPane.showMessageDialog(this, "Telefono no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
+                      
+                 } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                  
+            
+           
+                   
+      
+    }//GEN-LAST:event_jButton1BuscarXTelefonoActionPerformed
+    public void cargarSuComida(ResultSet detallep,int idped) throws SQLException, ClassNotFoundException{
+     if(detallep.first()){
+         do{
+          ResultSet comida = com.buscarConId(detallep.getInt("idComida"));
+            if (idped==detallep.getInt("idPedido"))  
+                
+                   if(comida.first()) 
+
+             do{                
+                 if(comida.getInt("idComida")==detallep.getInt("idComida")){
+               float precioTotal;
+  tablaDetalleComidas.addRow(new Object []{comida.getInt("idComida"),comida.getString("descripcion"),detallep.getInt("cantidad"),comida.getFloat("precio"),precioTotal=detallep.getInt("cantidad")*comida.getFloat("precio")});           
+                 
+                 }                         
+           }while(comida.next());
+           }while(detallep.next());
+         }
+    
+    }
+    public void cargarClientes (ResultSet clie, String zonas,float precioZona,int idCli,ResultSet tele,ResultSet pedido) throws SQLException, ClassNotFoundException{
+    if(clie.getInt("zona")==1){
                            zonas="centrica";
                            ResultSet zonaaa= zona.BuscarPorZona(zonas);
                            if(zonaaa.first()){
                                precioZona = zonaaa.getFloat("precio");
                            }
-                       }else{ zonas="no centrica"; 
+                       else{ zonas="no centrica"; 
                               precioZona=zona.getRsDatos().getFloat("precio");}
-                      ResultSet pedido= ped.BuscarXCliente(clientes.getInt("idCliente"));
-                      ResultSet detallePed = detalleped.BuscarDetalles(pedido.getInt("idPedido"));
-                      ResultSet comida= com.buscar();
-                      if(pedido.first()&& detallePed.first()&& comida.first()){
-                          if(idCli== clientes.getInt("idCliente")){
-                          
-   tablaClienteyPedido.addRow(new Object[]{telefonos.getInt("numero"),clientes.getString("nombre"),clientes.getString("apellido"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas});
-                          if(detallePed.getInt("idPedido")==pedido.getInt("idPedido")){
-                              do{ 
-                                      do{                                 
-                                          float precioTotal;
-  tablaDetalleComidas.addRow(new Object []{comida.getInt("idComida"),comida.getString("descripcion"),comida.getInt("cantidad"),comida.getFloat("precio"),precioTotal=comida.getInt("comida")*comida.getFloat("precio")});                                    
-                                      }while(comida.next());
-                                     }while(detallePed.next());
-                                  } 
-                          else{JOptionPane.showMessageDialog(this, "Id pedido no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
-                            }
-                          else{JOptionPane.showMessageDialog(this, "Id Cliente no son iguales ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
-                      }
-                      else{JOptionPane.showMessageDialog(this, "id pedido, detalle y comida no se encontró ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);}
-                      } 
-                 else{
-                      JOptionPane.showMessageDialog(this, "Id Cliente no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-                  }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "telefono no encontrado ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-             }
-           
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ModificarPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-      
-    }//GEN-LAST:event_jButton1BuscarXTelefonoActionPerformed
+                           if(idCli== clie.getInt("idCliente")){
+                       
+   tablaClienteyPedido.addRow(new Object[]{tele.getInt("numero"),clie.getString("nombre"),clie.getString("apellido"),pedido.getDate("fecha"),pedido.getTime("hora"),zonas,precioZona});
+    
+    }
 
+}
+}   
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+                 int posicion= jTable1TablaClientePedido.getSelectedRow();
+                 
+    }//GEN-LAST:event_jButtonModificarActionPerformed
         
     
     /**
@@ -393,6 +438,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ModificarPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -404,7 +450,9 @@ public class ModificarPedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1BuscarXTelefono;
+    private javax.swing.JButton jButton1ModificarComida;
     private javax.swing.JButton jButton1VolverAtras;
+    private javax.swing.JButton jButton2EliminarPedido;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
