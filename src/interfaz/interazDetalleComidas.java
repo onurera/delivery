@@ -32,7 +32,7 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     /**
      * Creates new form interazDetalleComidas
      */
-    public interazDetalleComidas() {
+    public interazDetalleComidas(JFrame Padre,Usuarios user) {
         initComponents();
           try {
               cargarTablaPedidos();
@@ -214,35 +214,35 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
 
         
-        int filaseleccionada = jTable1PedidosCocina.getSelectedRow();
-         
-        if(filaseleccionada >= 0){
-            
-        
-             Connection conex;            
-            try {
-                conex = Conexion.Cadena();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String ConsultaSQL = "SELECT * FROM Pedido WHERE estadoPedido = '"+1+"' ";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-           
-            // while (rsDatos.next()) 
-                
-            // idpedido = rsDatos.getString(1);                                          
-               int idcliente= rsDatos.getInt(2);
-               int terminado = rsDatos.getInt(9);
-               int estado = rsDatos.getInt(10);
-                         
-    
-        }else{
-           
-           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun pedido", "", JOptionPane.ERROR_MESSAGE);
-       }
+////        int filaseleccionada = jTable1PedidosCocina.getSelectedRow();
+////         
+////        if(filaseleccionada >= 0){
+////            
+////        
+////             Connection conex;            
+////            try {
+////                conex = Conexion.Cadena();
+////            } catch (ClassNotFoundException ex) {
+////                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+////            } catch (SQLException ex) {
+////                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+////            }
+////            String ConsultaSQL = "SELECT * FROM Pedido WHERE estadoPedido = '"+1+"' ";
+////            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+////            rsDatos = sentencia.executeQuery(ConsultaSQL);
+////           
+////            // while (rsDatos.next()) 
+////                
+////            // idpedido = rsDatos.getString(1);                                          
+////               int idcliente= rsDatos.getInt(2);
+////               int terminado = rsDatos.getInt(9);
+////               int estado = rsDatos.getInt(10);
+////                         
+////    
+////        }else{
+////           
+////           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun pedido", "", JOptionPane.ERROR_MESSAGE);
+////       }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -277,6 +277,7 @@ public class interazDetalleComidas extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(interazDetalleComidas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -304,7 +305,7 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 public void cargarTablaPedidos() throws ClassNotFoundException, SQLException {
-        String idpedido;
+        int idpedido;
         String cabecera[]={"idPedido","idCliente","idComida","Descripcion","Cantidad","Estado","Terminado"};
         String datos[][]={};
         DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
@@ -315,7 +316,7 @@ public void cargarTablaPedidos() throws ClassNotFoundException, SQLException {
             rsDatos = sentencia.executeQuery(ConsultaSQL);
             while (rsDatos.next()) {
                 
-               idpedido = rsDatos.getString(1);                                          
+               idpedido = rsDatos.getInt(1);                                          
                int idcliente= rsDatos.getInt(2);
                int terminado = rsDatos.getInt(9);
                int estado = rsDatos.getInt(10);

@@ -118,7 +118,7 @@ public class detallePedido {
         return idPedido;
     }
 
-    public ResultSet BuscarDetalles(String idPe) throws ClassNotFoundException {
+    public ResultSet BuscarDetalles(int idPe) throws ClassNotFoundException {
 
         try {
             Connection cn = Conexion.Cadena();

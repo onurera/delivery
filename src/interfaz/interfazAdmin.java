@@ -20,6 +20,10 @@ public class interfazAdmin extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    interfazAdmin(Login aThis, Usuarios user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 //    private interfazAdmin() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
