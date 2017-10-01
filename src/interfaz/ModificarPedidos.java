@@ -42,7 +42,7 @@ public class ModificarPedidos extends javax.swing.JFrame {
         tablaClienteyPedido = new DefaultTableModel();
         tablaDetalleComidas = new DefaultTableModel();
         jTable1TablaClientePedido.setModel(tablaClienteyPedido);
-        
+        setLocationRelativeTo(null);
         tablaClienteyPedido.setColumnIdentifiers(cabecera);
         String cabecera2 [] ={"idComida","Descripcion","Cantidad","Precio Unitario","Precio Total"};
         jTable3TablaComidaCliente.setModel(tablaDetalleComidas);
@@ -407,8 +407,43 @@ public class ModificarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-                 int posicion= jTable1TablaClientePedido.getSelectedRow();
-                 
+                
+             int telefono = 0;   
+             String nombre = null;
+             String apellido = null;
+             float precioZona = 0;
+             int zon=0;
+        int posicion= jTable1TablaClientePedido.getSelectedRow();
+        if(jTable1TablaClientePedido.getSelectedRows().length > 0){
+                 int i=0;
+                 while(i <=tablaClienteyPedido.getRowCount()){
+                     if (i==posicion){
+                          telefono =(int)tablaClienteyPedido.getValueAt(posicion, 0);
+                          nombre= (String)tablaClienteyPedido.getValueAt(posicion, 1);
+                          apellido = (String)tablaClienteyPedido.getValueAt(posicion, 2);
+                         
+                          if(tablaClienteyPedido.getValueAt(posicion, 5).equals("centrica")){
+                              precioZona=(float)tablaClienteyPedido.getValueAt(posicion, 6);
+                              zon=1;
+                          }
+                          else
+                              precioZona=(float)tablaClienteyPedido.getValueAt(posicion, 6);
+                     }
+                     i=i+1;
+                 }
+                 modificarDatosCliente modificarDtsClient = new modificarDatosCliente();
+                 modificarDtsClient.setTelefono(telefono);
+                 modificarDtsClient.setNombre(nombre);
+                 modificarDtsClient.setApellido(apellido);
+                 modificarDtsClient.setZona(zon);
+                 modificarDtsClient.setPrecioZona(precioZona);
+                 modificarDtsClient.setVisible(true);
+        }
+        else 
+        {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione la fila que desa modificar", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButtonModificarActionPerformed
         
     
