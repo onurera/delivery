@@ -202,7 +202,7 @@ int idUsuario = 0;
            jTextField1nombreUsuario.requestFocus();
            
           }
-          else JOptionPane.showMessageDialog(this, "Debe verificar todos los cambios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+          else JOptionPane.showMessageDialog(this, "Debe verificar todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
        }
         catch(Exception ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);

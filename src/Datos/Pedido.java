@@ -177,9 +177,9 @@ public class Pedido {
 
     public int Insertar() throws SQLException {
         int idPedido = 0;
-        
+        emitida=1;
         estadoPedido = 1;
-        
+        terminado=0;
         // Inserta un contacto y devuelve su id 
         try {
             Connection cn = Conexion.Cadena();

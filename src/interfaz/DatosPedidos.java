@@ -558,13 +558,13 @@ int idPedido=0;
             }
             float total = importeTotal+ importeZon;
             ped.setEmitida(1);
-            ped.setTerminado(1);
+            
             ped.setTotal(total);
             ped.setEstadoPedido(1);
             idPedido = ped.Insertar();
            // Cargar detalles 
              traerDatosTabla(idPedido);
-            
+          JOptionPane.showMessageDialog(this, "Pedido registrado", "Advertencia", JOptionPane.INFORMATION_MESSAGE);   
          }
     } catch (ClassNotFoundException | SQLException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -711,41 +711,7 @@ int idPedido=0;
         catch(Exception ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
         }
-        /* 
-        Cliente cliente = new Cliente();
-        Telefonos telefono = new Telefonos();
-
-        jTextFieldTelefonoClienteBuscado.requestFocus();
-        try{
-            if(verificarCampos()){
-                cliente.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
-                cliente.setApellido(jTextFieldApellidoyNombre.getText());
-                cliente.setNombre(jTextField1ApellidoCliente.getText());
-                cliente.setDomicilio(jTextFieldDomicilio.getText());
-                jTextFieldLugardeEnvio.setText("Belgrano 679");
-                cliente.setEstado(1);
-                if("centrica".equals(jTextField1Zona.getText()))
-                {
-                    cliente.setZona(1);
-
-                }
-                else
-                cliente.setZona(0);
-                idCliente= cliente.Insertar();
-                JOptionPane.showMessageDialog(this, "Se cargó un Cadete ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-
-                limpiarVariables();
-                jTextFieldTelefonoClienteBuscado.requestFocus();
-            }
-            //un cliente puede tener uno o varios numeros de celulares y un numero de telefono.
-            telefono.setCliente(idCliente);
-            telefono.setTelefono(Integer.parseInt(jTextFieldTelefonoClienteBuscado.getText()));
-            telefono.setEstado(1);
-            telefono.Insertar();
-        }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR!!", JOptionPane.ERROR_MESSAGE);
-        }*/
+       
         
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
@@ -825,69 +791,7 @@ int idPedido=0;
     catch (ClassNotFoundException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
     }
-        /*jButtonNuevoCliente.setEnabled(false);
-        try {
-
-            ResultSet cliente= cli.buscarPorTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-
-            if (cliente.first()){
-                do{
-                    if(Integer.parseInt(jTextFieldTelefono.getText())== cliente.getInt("telefono") ){
-                        jTextFieldTelefonoClienteBuscado.setText(Integer.toString(cliente.getInt("telefono")));
-                        jTextFieldTelefonoClienteBuscado.setEditable(false);
-                        jTextFieldApellidoyNombre.setText(cliente.getString("nombre"));
-                        jTextFieldApellidoyNombre.setEditable(false);
-                        jTextField1ApellidoCliente.setText(cliente.getString("apellido"));
-                        jTextField1ApellidoCliente.setEditable(false);
-                        jTextFieldDomicilio.setText(cliente.getString("domicilio"));
-                        jTextFieldDomicilio.setEditable(false);
-                        jTextFieldLugardeEnvio.setText("Av Belgrano 420");
-                        jTextFieldLugardeEnvio.setEditable(false);
-                        if(cliente.getInt("zona")==1)
-                        {
-                            jTextField1Zona.setText("centrica");
-                            jTextField1Zona.setEditable(false);
-                        }else {jTextField1Zona.setText("no centrica");
-                            jTextField1Zona.setEditable(false);}
-                        ResultSet zon= zona.BuscarPorZona(jTextField1Zona.getText());
-                        if(zon.first()){
-
-                            if(jTextField1Zona.getText().equals(zon.getString("descripcion"))){
-                                importeZon= zon.getFloat("precio");
-                                jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
-                                jTextField1ImporteZOna.setEditable(false);
-
-                            }else{
-                                importeZon= zon.getFloat("precio");
-                                jTextField1ImporteZOna.setText(Float.toString(zon.getFloat("precio")));
-                                jTextField1ImporteZOna.setEditable(false);
-                            }
-                        }
-                    }
-                    else{
-
-                    }
-                    idCliente= cliente.getInt("idCliente");
-                }while (cliente.next());
-
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "No existe el cliente, por favor Registrelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-                jButtonNuevoCliente.setEnabled(true);
-                jButtonBuscar.setEnabled(false);
-                jTextFieldTelefono.setText("");
-                jTextFieldTelefonoClienteBuscado.requestFocus();
-            }
-            //Consultar por que no me funciona el mensaje de error o buscar !
-
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (ClassNotFoundException ex) {
-            Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+       
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
@@ -952,6 +856,8 @@ int idPedido=0;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DatosPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

@@ -64,6 +64,12 @@ public class ModificarComida extends javax.swing.JFrame {
 
         jLabelCodigo.setText("Codigo");
 
+        jTextFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCodigoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDatosComidaLayout = new javax.swing.GroupLayout(jPanelDatosComida);
         jPanelDatosComida.setLayout(jPanelDatosComidaLayout);
         jPanelDatosComidaLayout.setHorizontalGroup(
@@ -175,6 +181,10 @@ public class ModificarComida extends javax.swing.JFrame {
     private void jTextFieldDescipcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescipcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescipcionActionPerformed
+
+    private void jTextFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCodigoActionPerformed
 
     /**
      * @param args the command line arguments

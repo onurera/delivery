@@ -117,7 +117,7 @@ public class Telefonos {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Telefonos where numero  = '" + tel + "'";
+            String SQL = "Select * from Telefonos where numero  = " + tel ;
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -135,4 +135,24 @@ public class Telefonos {
         return rsDatos;
 
     }
+    
+    public int modificarTelefono(int idCli,int idTele, int numtelefo) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+             psPrepSencencias = cn.prepareStatement("UPDATE Telefonos SET numero=? where idCliente=? and  idTel=?");
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            psPrepSencencias.setInt(1, numtelefo);
+            psPrepSencencias.setInt(2, idCli);
+            psPrepSencencias.setInt(3, idTele);
+            idTele = psPrepSencencias.executeUpdate();
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idTele;
+
+    }
+    
+    
 }

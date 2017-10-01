@@ -101,7 +101,7 @@ public class Zona {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Zona where descripcion like '" + desc + "'";
+            String SQL = "Select * from Zona where descripcion = '" + desc + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);

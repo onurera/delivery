@@ -190,7 +190,7 @@ public ResultSet buscar() throws ClassNotFoundException {
              try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Cliente where idCliente like '" + idc + "'";
+            String SQL = "Select * from Cliente where idCliente = '" + idc + " and estadoCliente = 1 ";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -212,5 +212,55 @@ public ResultSet buscar() throws ClassNotFoundException {
         return rsDatos;
 
     }
+    
+    public int modificarDatos(int idCliente,String apellido,String nombre, String domicilio,int zonas) throws ClassNotFoundException{
+    try {
+            Connection cn = Conexion.Cadena();
 
+      psPrepSencencias = cn.prepareStatement("UPDATE Cliente SET nombre=?,apellido=?,zona=?,domicilio=? where idCliente=? and estadoCliente=?");
+
+           
+//            psPrepSencencias.setInt(1, telefono);
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);  
+            psPrepSencencias.setInt(6,1);
+// psPrepSencencias.setInt(3, tipo);
+            //psPrepSencencias.setInt(1, contraseña);
+            // psPrepSencencias.setString(2, mail);
+            psPrepSencencias.setInt(3, zonas);
+            psPrepSencencias.setString(4,domicilio );
+            //psPrepSencencias.setInt(8, estadoCadete);
+            psPrepSencencias.setInt(5, idCliente);
+
+            //ejecuto sentencia
+            idCliente = psPrepSencencias.executeUpdate();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return idCliente;
+    }
+    public void eliminarCliente(int estadoCli,int idCli) throws ClassNotFoundException{
+    
+    try {
+            Connection cn = Conexion.Cadena();
+
+      psPrepSencencias = cn.prepareStatement("UPDATE Cliente SET estadoCliente=? where idCliente=?" );
+
+           
+//            psPrepSencencias.setInt(1, telefono);
+            psPrepSencencias.setInt(1, estadoCli);
+            
+            psPrepSencencias.setInt(2, idCli);
+
+            //ejecuto sentencia
+            idCli = psPrepSencencias.executeUpdate();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+    }
 }
