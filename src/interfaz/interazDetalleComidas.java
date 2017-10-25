@@ -10,6 +10,7 @@ package interfaz;
  * @author NICOLAS
  */
 import Datos.Conexion;
+import Datos.Pedido;
 import javax.swing.JFrame;
 import Datos.Usuarios;
 import Datos.detallePedido;
@@ -34,18 +35,23 @@ public class interazDetalleComidas extends javax.swing.JFrame {
      */
     public interazDetalleComidas(JFrame Padre,Usuarios user) {
         initComponents();
-          try {
+       // this.setTitle("Cocina");
+          try {      
+              //JOptionPane.showMessageDialog(null,"por cargar tabla");
               cargarTablaPedidos();
+              //JOptionPane.showMessageDialog(null,"ya pasé");
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
           } catch (SQLException ex) {
               Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
           }
+         
         this.setLocationRelativeTo(null);
+   // JOptionPane.showMessageDialog(null,"termine el constructor");
     }
 
-    private interazDetalleComidas() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   private interazDetalleComidas() {
+////        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -58,7 +64,6 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1PedidosCocina = new javax.swing.JTable();
         jButton1ActualizarLista = new javax.swing.JButton();
@@ -67,34 +72,35 @@ public class interazDetalleComidas extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("COCINA");
-
         jTable1PedidosCocina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "IdPedido", "idCliente", "IdComida", "Descripcion", "Cantidad", "Estado", "Terminado"
+                "IdPedido", "idCliente", "IdComida", "Descripcion", "Cantidad", "Terminado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1PedidosCocina);
@@ -114,6 +120,11 @@ public class interazDetalleComidas extends javax.swing.JFrame {
         });
 
         jRadioButton3.setText("Cocinado");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,14 +137,6 @@ public class interazDetalleComidas extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLabel4.setText("Descripcion");
-
-        jLabel5.setText("jLabel5");
-
-        jLabel6.setText("jLabel6");
-
-        jLabel7.setText("jLabel7");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,21 +145,20 @@ public class interazDetalleComidas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1ActualizarLista)
-                                    .addGap(292, 292, 292))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jRadioButton2)
-                                    .addGap(29, 29, 29)
-                                    .addComponent(jRadioButton3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(299, 299, 299)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1ActualizarLista)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(349, 349, 349)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton2)
+                                .addGap(82, 82, 82)
+                                .addComponent(jRadioButton3)
+                                .addGap(177, 177, 177))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -165,37 +167,19 @@ public class interazDetalleComidas extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145)
-                .addComponent(jLabel6)
-                .addGap(116, 116, 116)
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(jButton1ActualizarLista)
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
@@ -208,41 +192,48 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActualizarListaActionPerformed
-        // TODO add your handling code here:
+try {
+              // TODO add your handling code here:
+              cargarTablaPedidos();
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (SQLException ex) {
+              Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+          }        
+// TODO add your handling code here:        
+// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActualizarListaActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
 
         
-////        int filaseleccionada = jTable1PedidosCocina.getSelectedRow();
-////         
-////        if(filaseleccionada >= 0){
-////            
-////        
-////             Connection conex;            
-////            try {
-////                conex = Conexion.Cadena();
-////            } catch (ClassNotFoundException ex) {
-////                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
-////            } catch (SQLException ex) {
-////                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
-////            }
-////            String ConsultaSQL = "SELECT * FROM Pedido WHERE estadoPedido = '"+1+"' ";
-////            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-////            rsDatos = sentencia.executeQuery(ConsultaSQL);
-////           
-////            // while (rsDatos.next()) 
-////                
-////            // idpedido = rsDatos.getString(1);                                          
-////               int idcliente= rsDatos.getInt(2);
-////               int terminado = rsDatos.getInt(9);
-////               int estado = rsDatos.getInt(10);
-////                         
-////    
-////        }else{
-////           
-////           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun pedido", "", JOptionPane.ERROR_MESSAGE);
-////       }
+          int filaseleccionada = jTable1PedidosCocina.getSelectedRow();
+         
+        if(filaseleccionada >= 0){
+            
+               String idpe;
+               int coccion=1;
+               
+            idpe=jTable1PedidosCocina.getValueAt(filaseleccionada, 0).toString();
+           int idpedido=Integer.parseInt(idpe);            
+           Pedido P = new Pedido();            
+           P.modificar(idpedido,coccion);
+           
+           
+             JOptionPane.showMessageDialog(null,"Comida Cocinandose");
+            try {
+                cargarTablaPedidos();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+        }else{
+           
+           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun pedido", "", JOptionPane.ERROR_MESSAGE);
+       }
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -250,6 +241,35 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        int filaseleccionada = jTable1PedidosCocina.getSelectedRow();
+         
+        if(filaseleccionada >= 0){
+            
+               String idpe;
+               int coccion=2;
+               
+            idpe=jTable1PedidosCocina.getValueAt(filaseleccionada, 0).toString();
+           int idpedido=Integer.parseInt(idpe);            
+           Pedido P = new Pedido();            
+           P.modificar(idpedido,coccion);
+             JOptionPane.showMessageDialog(null,"Comida Lista");
+            try {
+                cargarTablaPedidos();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(interazDetalleComidas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+        }else{
+           
+           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun pedido", "", JOptionPane.ERROR_MESSAGE);
+       }
+        
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,23 +310,21 @@ public class interazDetalleComidas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1ActualizarLista;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1PedidosCocina;
+    public javax.swing.JTable jTable1PedidosCocina;
     // End of variables declaration//GEN-END:variables
 
 public void cargarTablaPedidos() throws ClassNotFoundException, SQLException {
-        int idpedido;
-        String cabecera[]={"idPedido","idCliente","idComida","Descripcion","Cantidad","Estado","Terminado"};
+    
+    
+    //JOptionPane.showMessageDialog(null,"entre a cargar tabla");
+        String idpedido;
+        String cabecera[]={"idPedido","idCliente","idComida","Descripcion","Cantidad","Terminado"};
         String datos[][]={};
         DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
         jTable1PedidosCocina.setModel(modelo);
@@ -315,129 +333,35 @@ public void cargarTablaPedidos() throws ClassNotFoundException, SQLException {
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
             while (rsDatos.next()) {
+          //      JOptionPane.showMessageDialog(null,"en el while");
                 
-               idpedido = rsDatos.getInt(1);                                          
+               idpedido = rsDatos.getString(1);                                          
                int idcliente= rsDatos.getInt(2);
-               int terminado = rsDatos.getInt(9);
+               int terminados = rsDatos.getInt(9);
                int estado = rsDatos.getInt(10);
+               String Terminado;
+                if(terminados==0){
+                   Terminado="Espera";
+                  }else{ 
+                        if(terminados==1){
+                      Terminado="Cocinando";
+                  }else{
+                Terminado="Terminado";
+               }
+               }
                          
                detallePedido DP = new detallePedido();
-               ResultSet detallePedido = DP.BuscarDetalles(idpedido);
+               ResultSet detallePedido = DP.BuscarDetalles2(idpedido);
                int cantidad = detallePedido.getInt("cantidad");
                int idcomida = detallePedido.getInt("idComida");
                
                ResultSet Comida = DP.BuscarComida(idcomida);
-               String descripcion = Comida.getString("descripcion");
-               
-              Object fila[]= {idpedido,idcliente,idcomida,descripcion,cantidad,estado,terminado}; 
+
+                String descripcion = Comida.getString("descripcion");
+              Object fila[]= {idpedido,idcliente,idcomida,descripcion,cantidad,Terminado}; 
               modelo.addRow(fila);
             }
-////        String datos[] = new String[7];
-////        DefaultTableModel dtm = (DefaultTableModel) jTable1PedidosCocina.getModel();
-////        while (dtm.getRowCount() > 0) {
-////            dtm.removeRow(0);
-////        }
-               
-        /* 
-        String cabecera[]={"idcadete","Nombre","Apellido","DNI","domicilio"};
-        String datos[][]={};
-        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
-        jTable1DatosPersonalesEmp.setModel(modelo);
-        try {
-            
-            ResultSet cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
-           
-            if( cadete.first()){
-              int idcadete = cadete.getInt("idcadete");
-              String nombre = cadete.getString("nombre");
-              String apellido = cadete.getString("apellido");
-              int doc = cadete.getInt("dni");
-              String domicilio = cadete.getString("domicilio");
-              Object fila[]= {idcadete,nombre,apellido,doc,domicilio};
-              modelo.addRow(fila); 
-        */
-        
-//////            Connection conex = Conexion.Cadena();            
-//////            String ConsultaSQL = "SELECT * FROM Pedido WHERE estadoPedido = '"+1+"' ";
-//////            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-//////            rsDatos = sentencia.executeQuery(ConsultaSQL);
-//////            while (rsDatos.next()) {
-//////                idped = rsDatos.getString(1);
-//////                //cargarTablaPedidos2(idped);
-//////                detallePedido DP = new detallePedido();
-//////                ResultSet detallePedido = DP.BuscarDetalles(idped);
-//////                int cantidad = detallePedido.getInt("cantidad");
-//////                
-//////                         
-//////                datos[0] = rsDatos.getString(1); // // PEDIDOS  -  Idpedido
-//////                datos[1] = rsDatos.getString(2);//// PEDIDOS   - Icliente                          
-//////                //datos[2] = rsDatos.getString(1); //COMIDA - idcomida
-//////               // datos[3] = rsDatos.getString(10);  //COMIDA - descripcion
-//////                datos[4] = rsDatos.getInt("cantidad");  //DETALLE PEDIDO -cantidad
-//////                datos[5] = rsDatos.getString(10); //PEDIDO -estado
-//////                datos[6] = rsDatos.getString(9); //PEDIDO - terminado
-//////                dtm.addRow(datos);
-////////                idped = rsDatos.getString(1);
-////////                cargarTablaPedidos2(idped);
-//////                
-//////                
-//////            }
-//////            
-//////        
+            //JOptionPane.showMessageDialog(null,"fin while");
 }
-public void cargarTablaPedidos2(String idped) throws ClassNotFoundException, SQLException {
-        String idcom;
-        String datos[] = new String[7];
-        DefaultTableModel dtm = (DefaultTableModel) jTable1PedidosCocina.getModel();
-        while (dtm.getRowCount() > 0) {
-            dtm.removeRow(0);
-        }
-        
-            Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM Pedido WHERE idPedido = '"+idped+"' ";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-            while (rsDatos.next()) {
 
-               //datos[0] = rsDatos.getString(1);
-               //datos[1] = rsDatos.getString(2);
-                //datos[2] = "";
-                datos[3] = rsDatos.getString(10); //descripcion 
-                //datos[4] = rsDatos.getString(4);
-               //datos[5] = rsDatos.getString(10);
-               //datos[6] = rsDatos.getString(9);                
-               dtm.addRow(datos);
-               idcom=rsDatos.getString(1);
-               cargarTablaPedidos3(idcom);
-            }
-            
-        
-} 
-
-public void cargarTablaPedidos3(String idcom) throws ClassNotFoundException, SQLException {
-        String datos[] = new String[7];
-        DefaultTableModel dtm = (DefaultTableModel) jTable1PedidosCocina.getModel();
-        while (dtm.getRowCount() > 0) {
-            dtm.removeRow(0);
-        }
-        
-            Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM Comida WHERE idComida = '"+idcom+"' ";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-            while (rsDatos.next()) {
-
-               //datos[0] = rsDatos.getString(1);
-               //datos[1] = rsDatos.getString(2);
-               datos[2] = rsDatos.getString(1);
-               //datos[] = "";
-                //datos[3] = rsDatos.getString(10);
-               datos[4] = rsDatos.getString(2);
-               //datos[5] = rsDatos.getString(10);
-               //datos[6] = rsDatos.getString(9);                
-               dtm.addRow(datos);
-            }
-            
-        
-} 
     }

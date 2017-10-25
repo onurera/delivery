@@ -5,19 +5,48 @@
  */
 package interfaz;
 
+import Datos.Cadete;
+import Datos.Conexion;
+import Datos.Usuarios;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author NICOLAS
  */
 public class interfazUsuarioAdmi extends javax.swing.JFrame {
-
+    Usuarios usuario = new Usuarios();
+    private Statement sentencia;
+    private ResultSet rsDatos;
+    private DefaultTableModel modelo;
+   // private TableRowSorter trsFiltro;
+    private PreparedStatement psPrepSencencias;
+    public int idUsuario;
     /**
      * Creates new form interfazUsuarioAdmi
      */
     public interfazUsuarioAdmi() {
         initComponents();
+        this.setTitle("Gestion Usuarios");
+        this.setLocationRelativeTo(null);
+        try {
+            cargarTablaUsuario();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jButton1AgregarEmpleado.setEnabled(false);
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -33,7 +62,6 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
         jButton1AgregarEmpleado = new javax.swing.JButton();
         jTextField1Buscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2BuscarEmpleado = new javax.swing.JButton();
         jButton2Modificar = new javax.swing.JButton();
         jButton3EliminarEmpleado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -41,10 +69,11 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3Fondo = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 0));
-        setMaximumSize(new java.awt.Dimension(400, 400));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -65,9 +94,6 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
 
         jLabel1.setText("Usuario");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 55, 72, 20));
-
-        jButton2BuscarEmpleado.setText("Buscar");
-        getContentPane().add(jButton2BuscarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 54, 94, -1));
 
         jButton2Modificar.setText("Modiicar ");
         jButton2Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,27 +136,104 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 107, 45));
 
-        jLabel2.setText("VENTANA PRINCIPAL USUARIO ADMINISTRADOR");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 11, 257, -1));
+        jLabel2.setText("Gestio de Usarios");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 140, -1));
 
         jLabel3Fondo.setBackground(new java.awt.Color(255, 153, 0));
         getContentPane().add(jLabel3Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 90, 20));
+
+        jLabel4.setText("Usuario:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1AgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AgregarEmpleadoActionPerformed
     
-        JFrame ventanaAgregarUsuario = new agregarEmpleado();
+       JFrame ventanaAgregarUsuario = new agregarEmpleado();
        ventanaAgregarUsuario.setVisible(true);
-        setVisible(false);
+       setVisible(false);
         
         // TODO add your handling code here:
            // ocultarr la interaz general y luego visualizar la ventana agregar empleado
     }//GEN-LAST:event_jButton1AgregarEmpleadoActionPerformed
 
+    public void cargarTablaUsuario() throws ClassNotFoundException, SQLException {
+        String datos[] = new String[8];
+        DefaultTableModel md = (DefaultTableModel) jTable1DatosPersonalesEmp.getModel();
+        while (md.getRowCount() > 0) {
+            md.removeRow(0);
+        }
+        
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM Usuario WHERE estadoUsuario = '"+1+"' ";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            while (rsDatos.next()) {
+                datos[0] = rsDatos.getString(2);
+                datos[1] = rsDatos.getString(3);
+                datos[2] = rsDatos.getString(4);
+                datos[3] = rsDatos.getString(5);
+                datos[4] = rsDatos.getString(6);
+                datos[5] = rsDatos.getString(7);
+                datos[6] = rsDatos.getString(8);
+                datos[7] = rsDatos.getString(9);
+                
+                md.addRow(datos);
+            }
+       
+    }
+    
     private void jTextField1BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1BuscarActionPerformed
         // TODO add your handling code here:
+        
+        Usuarios usuario = new Usuarios();
+   
+        String cabecera[]={"nombreUsuario","Nombre","Apellido","tipoUsuario","Contraseña","Domicilio","E-mail","estadoUsuario"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTable1DatosPersonalesEmp.setModel(modelo);
+        try {
+            if(verificarDatosUsuarios()==true){
+            ResultSet US = usuario.BuscarX(jTextField1Buscar.getText());
+           
+            if( US.first()){
+              idUsuario= US.getInt("idUsuario");
+              String nombreUsuario = US.getString("nombreUsuario");
+              String nombre = US.getString("nombre");
+              String apellido = US.getString("apellido");
+              int tipoUsuario = US.getInt("tipoUsuario");
+              int contraseña = US.getInt("contraseña");
+              String domicilio = US.getString("domicilio");
+              String mail = US.getString("mail");
+              int estadoUsuario = US.getInt("estadoUsuario");
+              Object fila[]= {nombreUsuario,nombre,apellido,tipoUsuario,contraseña,domicilio,mail,estadoUsuario};
+              modelo.addRow(fila);     
+              jButton1AgregarEmpleado.setEnabled(false);
+              jButton2Modificar.setEnabled(true);
+              jButton3EliminarEmpleado.setEnabled(true);
+            }
+            else
+            {
+                jButton1AgregarEmpleado.setEnabled(true);
+                JOptionPane.showMessageDialog(this, "El usuario no Existe ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
+                jButton2Modificar.setEnabled(false);
+                jButton3EliminarEmpleado.setEnabled(false);
+                cargarTablaUsuario();
+                //jTextField1Buscar.setText("");
+            }
+            }else {
+            JOptionPane.showMessageDialog(this, "Escriba un nombre de usuario ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
+            cargarTablaUsuario();
+                jTextField1Buscar.setText("");
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jTextField1BuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -140,10 +243,104 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
     private void jButton2ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ModificarActionPerformed
         // TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
         // 
+       Usuarios US = new Usuarios();
+       ModificarDatosEmpleados MDE = new ModificarDatosEmpleados();
+       int filaseleccionada = jTable1DatosPersonalesEmp.getSelectedRow();
+
+        if(filaseleccionada >= 0){
+            
+           MDE.setVisible(true);
+           this.setVisible(false);
+       //jTextField1Buscar.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 3).toString());
+       MDE.jTextFieldNombreUsuario.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 0).toString());
+       MDE.jTextFieldContraseña.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 4).toString());
+       MDE.jTextFieldNombre.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 1).toString());
+       MDE.jTextFieldApellido.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 2).toString());
+       MDE.jComboBoxTipoUsuario.setSelectedItem(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 3).toString());
+       MDE.jTextFieldDomicilio.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 5).toString());
+       MDE.jTextFieldEmail.setText(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 6).toString());
+                      
+    
+        ResultSet usuario;
+            try {
+                usuario = US.BuscarX(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 0).toString());
+                 if( usuario.first()){
+                    int idusuario = usuario.getInt("idUsuario");
+                    String nombreUsuario = usuario.getString("nombreUsuario");
+                    MDE.nombreusuarioant = MDE.jTextFieldNombreUsuario.getText();
+                    MDE.idusua = idusuario;
+                    MDE.setVisible(true);
+       this.setVisible(false);
+                    /*int idcadete = cadete.getInt("idcadete");
+                    int doc = cadete.getInt("dni");
+                    MC.dniant = Integer.parseInt(MC.jTextField1DNI1.getText());
+                    MC.idcade=idcadete;*/
+//                       JOptionPane.showMessageDialog(null,Integer.toString(MC.dniant));
+//                       JOptionPane.showMessageDialog(null,Integer.toString(MC.idcade));
+  
+                       //MC.idcade=Integer.parseInt(MC.jTextField1DNI1.getText());
+
+                    }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+               Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+           }
+               
+            
+           
+  
+        }else{
+      JOptionPane.showMessageDialog(this,  " No Seleccionó ningun usuario", "", JOptionPane.ERROR_MESSAGE);
+        } 
+        
     }//GEN-LAST:event_jButton2ModificarActionPerformed
 
     private void jButton3EliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarEmpleadoActionPerformed
          //TRABAJAR CREAR UN OBJETO DE LA CLASE TABLA PARA MODIICAR LOS CAMPOS EXPUESTOS EN LA TABLA
+        Usuarios US = new Usuarios();
+        //Cadete CA = new Cadete();
+        int filaseleccionada = jTable1DatosPersonalesEmp.getSelectedRow();
+         
+        if(filaseleccionada >= 0){           
+       
+        try {
+            ResultSet buscarUsuario = US.BuscarX(jTable1DatosPersonalesEmp.getValueAt(filaseleccionada, 0).toString());
+            if(buscarUsuario.first()){
+                US.eliminarnombreusuario(buscarUsuario.getInt("idUsuario"));
+            
+            }
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }   catch (ClassNotFoundException ex) {
+                Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        //} catch (ClassNotFoundException ex) {
+          //  Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+       // }
+        JOptionPane.showMessageDialog(this, "El Usuario se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+            try {
+                cargarTablaUsuario();
+                jTextField1Buscar.setText("");
+//        int cantidadfilas=jTable1DatosPersonalesEmp.getSelectedRowCount();
+//        while(i<=cantidadfilas)  for(int i=cantidadfilas-1;i>=0;i--){
+//        modelo.removeRow(i);
+//        }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+                          
+    }else{
+           
+           JOptionPane.showMessageDialog(this,  " No Seleccionó ningun usuario", "", JOptionPane.ERROR_MESSAGE);
+       }
+        
     }//GEN-LAST:event_jButton3EliminarEmpleadoActionPerformed
 
     /**
@@ -172,6 +369,7 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(interfazUsuarioAdmi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -184,14 +382,22 @@ public class interfazUsuarioAdmi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1AgregarEmpleado;
-    private javax.swing.JButton jButton2BuscarEmpleado;
     private javax.swing.JButton jButton2Modificar;
     private javax.swing.JButton jButton3EliminarEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel3Fondo;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1DatosPersonalesEmp;
     private javax.swing.JTextField jTextField1Buscar;
     // End of variables declaration//GEN-END:variables
+
+ private boolean verificarDatosUsuarios() {
+        if(!"".equals(jTextField1Buscar.getText())){   
+        return true;
+        }
+        return false;
+    }
 }

@@ -38,6 +38,7 @@ int idPedido=0;
  float importeTotal;
  int cantidad;
  float importeZon;
+ 
     /**
      * Creates new form pedidos
      */
@@ -90,6 +91,7 @@ int idPedido=0;
      
     public DatosPedidos() {
         initComponents();
+        this.setTitle("Pedidos a Realizar");
         String cabecera [] ={"Codigo","Descripcion","Cantidad","Precio Unitario","Precio Total"};
         tablaPedido= new DefaultTableModel ();
         jTable1.setModel(tablaPedido);
@@ -98,6 +100,7 @@ int idPedido=0;
        jLabelFechaYHora.setText(fyh);
        setLocationRelativeTo(null);
        jLabelLugardeEnvio.setEnabled(false);
+       jButtonNuevoCliente.setEnabled(false);
         cargarMenuItemsCadete();
     }
     public String fechayHora(){
@@ -476,7 +479,7 @@ int idPedido=0;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonCancelar.setText("volver");
+        jButtonCancelar.setText("Atras");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
@@ -557,7 +560,7 @@ int idPedido=0;
                 ped.setZona(0);
             }
             float total = importeTotal+ importeZon;
-            ped.setEmitida(1);
+            ped.setEmitida(0);
             
             ped.setTotal(total);
             ped.setEstadoPedido(1);
@@ -720,7 +723,7 @@ int idPedido=0;
                jButtonNuevoCliente.setEnabled(false);
     try {
         // cambiar la forma de busqueda y hacerlo por la tabla de telefono
- 
+        if(verificarCampoTel() == true){   
            ResultSet telefonos= tel.BuscarX(Integer.parseInt(jTextFieldTelefono.getText()));
            if(telefonos.first()){
               do{
@@ -781,7 +784,9 @@ int idPedido=0;
             JOptionPane.showMessageDialog(this, "No existe el cliente, Incorporelo ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
                
            }
-        
+ }else{
+JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono ", "Advertencia", JOptionPane.INFORMATION_MESSAGE); 
+ }
                 //Consultar por que no me funciona el mensaje de error o buscar !
               
         }
@@ -791,7 +796,7 @@ int idPedido=0;
     catch (ClassNotFoundException ex) {
         Logger.getLogger(DatosPedidos.class.getName()).log(Level.SEVERE, null, ex);
     }
-       
+    
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
@@ -953,5 +958,14 @@ int idPedido=0;
         return false;
     }
 
+    public boolean verificarCampoTel(){     
+     
+        if(!"".equals(jTextFieldTelefono.getText())){   
+        return true;
+        }
+        return false;
+    }
+        
+    
     
 }

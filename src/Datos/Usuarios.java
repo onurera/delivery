@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 public class Usuarios {
     private Statement sentencia;
     private ResultSet rsDatos;
@@ -273,5 +274,64 @@ public class Usuarios {
         }
         return resp;
     }
+ public ResultSet buscarUsuario(String NombreUsuario) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
 
+            String SQL = "Select * from Usuario where nombreUsuario like '" + NombreUsuario + "' and estadoUsuario like 1";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            while (rsDatos.next()) {
+                tipo = rsDatos.getInt("tipoUsuario");
+                domicilio = rsDatos.getString("domicilio");
+                estado = rsDatos.getInt("estadoUsuario");
+
+                //cn.commit();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
+ 
+ public void modificar2(int idusua,String nombreusuario, int contraseña, String nombre,String apellido, int tipousuario, String domicilio, String email, int estadousuario) throws SQLException{
+
+
+        try {    
+            Connection cn = Conexion.Cadena();            
+            psPrepSencencias = cn.prepareStatement("UPDATE Usuario SET nombreUsuario='"+nombreusuario+"',nombre='"+nombre+"',apellido='"+apellido+"',tipoUsuario = '"+tipousuario+"',contraseña='"+contraseña+"',mail='"+email+"',domicilio='"+domicilio+"' WHERE idUsuario='"+idusua+"'"); 
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");   
+            //JOptionPane.showMessageDialog(null,doc);   
+
+        } catch (ClassNotFoundException ex ) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         
+}
+ public void eliminarnombreusuario(int idUsuario) throws SQLException {
+
+        try {
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE Usuario SET estadoUsuario=? where idUsuario= ?");
+            int estadoUsuario=0;
+            psPrepSencencias.setInt(1, estadoUsuario);
+            psPrepSencencias.setInt(2, idUsuario);
+
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+            // rsDatos.first();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   
 }

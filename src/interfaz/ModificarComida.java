@@ -23,6 +23,8 @@ public class ModificarComida extends javax.swing.JFrame {
      */
     public ModificarComida() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Comida");
     }
     
     /**
@@ -115,7 +117,7 @@ public class ModificarComida extends javax.swing.JFrame {
                     .addComponent(jTextFieldEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jButtonVolver.setText("Volver");
+        jButtonVolver.setText("Atras");
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverActionPerformed(evt);

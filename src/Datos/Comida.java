@@ -241,7 +241,7 @@ public class Comida {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Comida where idComida like '" + ide + "'";
+            String SQL = "Select * from Comida where idComida = '" + ide + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -257,6 +257,10 @@ public class Comida {
         }
         return rsDatos;
 
+    }
+
+    public boolean first() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

@@ -26,6 +26,9 @@ public class GestionarComidas extends javax.swing.JFrame {
      */
     public GestionarComidas() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Gestionar Comida");
+        
     }
     
 
@@ -124,6 +127,11 @@ public class GestionarComidas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableComidas);
 
         jButton1VolverMenu.setText("Volver al Menu");
+        jButton1VolverMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1VolverMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,6 +219,12 @@ public class GestionarComidas extends javax.swing.JFrame {
         Co.eliminar2(valor);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButton1VolverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1VolverMenuActionPerformed
+        principalInterfazEncargado volverMenu = new principalInterfazEncargado();
+        volverMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1VolverMenuActionPerformed
 
     void mostrartabla() {
     Comida CO = new Comida();

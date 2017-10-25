@@ -37,6 +37,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
     public interfazABMCadete() {
    
         initComponents();
+        this.setTitle("Gestionar Cadetes");
         try {
             cargarTablaCadetes();
         } catch (ClassNotFoundException ex) {
@@ -47,6 +48,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
         jButton1AgregarEmpleado.setEnabled(false);
         
         this.setLocationRelativeTo(null);
+        this.setTitle("Gestionar Cadete");
     }
 
     /**
@@ -121,7 +123,7 @@ public class interfazABMCadete extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("VENTANA ABM DE CADETES");
+        jLabel2.setText("GESTION CADETES");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,7 +230,7 @@ public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
         DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
         jTable1DatosPersonalesEmp.setModel(modelo);
         try {
-            
+    if( verifcarCampos()){         
             ResultSet cadete = CA.buscarX(Integer.parseInt(jTextField1Buscar.getText()));
            
             if( cadete.first()){
@@ -250,7 +252,10 @@ public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
                 jButton2Modificar.setEnabled(false);
                 jButton3EliminarEmpleado.setEnabled(false);
             }
-            
+    }else{
+        JOptionPane.showMessageDialog(this, "Escriba un DNI para Buscar o seleccione de la tabla ", "Error!!", JOptionPane.INFORMATION_MESSAGE);
+        cargarTablaCadetes();
+    }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(interfazABMCadete.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -259,6 +264,8 @@ public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
     }//GEN-LAST:event_jTextField1BuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        principalInterfazEncargado volverMenu = new principalInterfazEncargado();
+        volverMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -437,4 +444,14 @@ public void cargarTablaCadetes() throws ClassNotFoundException, SQLException {
     private int setText(Object valueAt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    private boolean verifcarCampos() 
+    {
+     if(!"".equals(jTextField1Buscar.getText())){
+         return true;
+     }
+     else{ return false;
+     }  
+}
 }

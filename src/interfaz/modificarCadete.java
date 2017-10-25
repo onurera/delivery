@@ -37,7 +37,7 @@ public int idcade;
         
         initComponents();
         this.setLocationRelativeTo(null);
-//        
+        this.setTitle("Modificar Cadete");
     }
     
    // int idCadete;

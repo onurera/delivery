@@ -154,5 +154,63 @@ public class Telefonos {
 
     }
     
+    public ResultSet BuscarTelefonoYIdCLi(int tel,int idCli) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+      String SQL = "Select * from Telefonos where idCliente  = '" + idCli+ "' and numero= '"+tel+"'and estado = 1";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            if (rsDatos.getRow() != 0) {
+                id = rsDatos.getInt("idTel");
+                cliente = rsDatos.getInt("idCliente");
+                estado = rsDatos.getInt("estado");
+                telefono = tel;
+            }
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
+     public void eliminarTelefono(int idTel) throws ClassNotFoundException{
     
+    try {
+            Connection cn = Conexion.Cadena();
+            
+      psPrepSencencias = cn.prepareStatement("UPDATE Telefonos SET estado= ? where idCliente= ? ");
+
+            estado=0;
+//            psPrepSencencias.setInt(1, telefono);
+            psPrepSencencias.setInt(1, estado);
+            
+            psPrepSencencias.setInt(2, idTel);
+
+            //ejecuto sentencia
+            idTel = psPrepSencencias.executeUpdate();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+    }
+     
+     public void modificarTelefono(int idTel, int numtelefo) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+             psPrepSencencias = cn.prepareStatement("UPDATE Telefonos SET numero='"+numtelefo+"' where idTel='"+idTel+"'");
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            psPrepSencencias.executeUpdate();
+                       //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+
+    }
 }

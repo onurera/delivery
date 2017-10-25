@@ -190,7 +190,7 @@ public ResultSet buscar() throws ClassNotFoundException {
              try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Cliente where idCliente = '" + idc + " and estadoCliente = 1 ";
+            String SQL = "Select * from Cliente where idCliente = '" + idc + "' and estadoCliente = 1 ";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -260,6 +260,60 @@ public ResultSet buscar() throws ClassNotFoundException {
         } catch (SQLException ex) {
             Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+       
+    }
+    public ResultSet buscarActivos(int idCli) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Cliente where idCliente = '"+idCli+"'and estadoCliente  = 1";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
+     public void eliminarCliente(int idCli) throws ClassNotFoundException{
+    
+    try {
+            Connection cn = Conexion.Cadena();
+            
+      psPrepSencencias = cn.prepareStatement("UPDATE Cliente SET estadoCliente= ? where idCliente= ?");
+
+            estado=0;
+//            psPrepSencencias.setInt(1, telefono);
+            psPrepSencencias.setInt(1, estado);
+            
+            psPrepSencencias.setInt(2, idCli);
+
+            //ejecuto sentencia
+            idCli = psPrepSencencias.executeUpdate();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+    }
+    
+     public void modificarDatos(int idCliente,String apellido,String nombre, String domicilio,int zonas,int telefono) throws ClassNotFoundException{
+    
+            Connection cn;
+        try {
+            cn = Conexion.Cadena();
+            psPrepSencencias = cn.prepareStatement("UPDATE Cliente SET nombre='"+nombre+"',apellido='"+apellido+"',zona='"+zonas+"',domicilio='"+domicilio+"', telefono = '"+telefono+"' where idCliente='"+idCliente+"'");
+        psPrepSencencias.executeUpdate();
+                      
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }   
         
        
     }

@@ -137,16 +137,17 @@ Usuarios user = new Usuarios();
                 user.setNombreUsuario(jTextFieldUsuario.getText());
                 boolean resp = user.verificarPass(user.getNombreUsuario(), Integer.parseInt(jPasswordFieldContraseña.getText()));
                 if (resp == true) {
-                 
-                    if(user.getNombreUsuario().equals("admin")){
-                        interfazAdmin view = new interfazAdmin(this, user);
-                         view.jLabel3.setText(jTextFieldUsuario.getText());
-                        view.setVisible(true);
+                        ResultSet buscarUsuario = user.buscarUsuario(jTextFieldUsuario.getText());
+                 if(buscarUsuario.first()) {      
+                    if( user.getTipo()==0){
+                        interfazUsuarioAdmi IU = new interfazUsuarioAdmi();
+                         IU.jLabel3.setText(jTextFieldUsuario.getText());
+                        IU.setVisible(true);
                         setVisible(false);
                     }
                     else
-                    if(user.getNombreUsuario().equals("empleado")){
-                        principalInterfazEncargado view = new principalInterfazEncargado(this, user);
+                    if( user.getTipo()==1){
+                        principalInterfazEncargado view = new principalInterfazEncargado();
 //                        principalInterfazEncargado A = new principalInterfazEncargado();
 //                       
                        view.jLabel3.setText(jTextFieldUsuario.getText());
@@ -154,7 +155,7 @@ Usuarios user = new Usuarios();
                         view.setVisible(true);
                         setVisible(false);
                     }
-                    else if(user.getNombreUsuario().equals("cocina")){
+                    else if( user.getTipo()==2 ){
                         interazDetalleComidas view = new interazDetalleComidas(this, user);
                          view.jLabel3.setText(jTextFieldUsuario.getText());
                         view.setVisible(true);
@@ -163,7 +164,7 @@ Usuarios user = new Usuarios();
                 } else {
                     JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "ERROR!!", JOptionPane.ERROR_MESSAGE);
                 }
-
+            }
             } else {
                 JOptionPane.showMessageDialog(this, "Los Campos no pueden ser ", "ERROR!!", JOptionPane.ERROR_MESSAGE);
             }

@@ -29,6 +29,8 @@ public class AgregarComida extends javax.swing.JFrame {
      */
     public AgregarComida() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Agregar Comida");
     }
     
 
@@ -104,7 +106,7 @@ public class AgregarComida extends javax.swing.JFrame {
             }
         });
 
-        jButtonVolver.setText("Volver");
+        jButtonVolver.setText("Atras");
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverActionPerformed(evt);
@@ -129,9 +131,9 @@ public class AgregarComida extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jPanelDatosComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVolver)
                     .addComponent(jButtonGuardar))

@@ -149,23 +149,23 @@ public class Factura {
 
     public int Insertar() throws SQLException {
         int idFactura = 0;
-        pagada = 0;
+        
         anulada = 0;
         // Inserta un contacto y devuelve su id 
         try {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("insert into Factura (idCliente,idCadete, lugarEnvio, zona,anulada,total,pagada, fecha, hora) values (?,?, ?, ?, ?, ?,?," + "CURDATE(), curTime())",
+            psPrepSencencias = cn.prepareStatement("insert into Factura (idCliente,lugarEnvio, zona,anulada,total,pagada, fecha, hora) values (?,?, ?, ?, ?, ?," + "CURDATE(), curTime())",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setInt(1, idCliente);
-            psPrepSencencias.setInt(2, idCadete);
-            psPrepSencencias.setString(3, lugarEnvio);
-            psPrepSencencias.setInt(4, zona);
-            psPrepSencencias.setInt(5, anulada);
-            psPrepSencencias.setFloat(6, total);
-            psPrepSencencias.setInt(7, pagada);
+            
+            psPrepSencencias.setString(2, lugarEnvio);
+            psPrepSencencias.setInt(3, zona);
+            psPrepSencencias.setInt(4, anulada);
+            psPrepSencencias.setFloat(5, total);
+            psPrepSencencias.setInt(6, pagada);
         
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();

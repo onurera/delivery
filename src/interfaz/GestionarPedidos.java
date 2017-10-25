@@ -19,6 +19,7 @@ public class GestionarPedidos extends javax.swing.JFrame {
     public GestionarPedidos() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setTitle("Gestionar Pedidos");
     }
 
     /**
@@ -50,7 +51,7 @@ public class GestionarPedidos extends javax.swing.JFrame {
             }
         });
 
-        jButtonSalir.setText("volver ");
+        jButtonSalir.setText("Atras");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalirActionPerformed(evt);

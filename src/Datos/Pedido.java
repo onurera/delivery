@@ -5,6 +5,7 @@
  */
 package Datos;
 
+import interfaz.modificarCadete;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -215,7 +217,7 @@ public class Pedido {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Pedido where estadoPedido like 1 and emitido like 0 and terminado like 0 ";
+            String SQL = "Select * from Pedido where estadoPedido = 1 and emitido = 1 and terminado = 2 ";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -298,7 +300,7 @@ public ResultSet BuscarXCliente(int idCli) throws ClassNotFoundException {
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Pedido where idCliente = '" + idCli + "and estadoPedido = 1 '";
+            String SQL = "Select * from Pedido where idCliente = '" + idCli + "' and estadoPedido = 1 ";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -323,4 +325,67 @@ public ResultSet BuscarXCliente(int idCli) throws ClassNotFoundException {
         return rsDatos;
 
     }
+
+// ESTO NECESITO COALI
+ public void modificar(int idped,int coccion){
+
+///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
+        
+                
+        try {    
+            Connection cn = Conexion.Cadena();            
+            psPrepSencencias = cn.prepareStatement("UPDATE pedido SET terminado='"+coccion+"' WHERE idPedido='"+idped+"'"); //,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias.executeUpdate();
+             
+            //JOptionPane.showMessageDialog(null,doc);   
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+    public ResultSet traerPedido(int idCli,int idPed)throws SQLException{
+        try {
+        Connection cn= Conexion.Cadena();
+            String sql= "Select * from Pedido where idCliente = '"+idCli+"'and idPedido= '"+idPed+" and estadoPedido = 1 and emitido = 1 and terminado = 2 '";
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(sql);
+        }catch(ClassNotFoundException ex){
+            }
+        return rsDatos;
+    }
+
+    public void modificarpedido(int idped){
+
+///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
+        
+              
+        try {    
+            Connection cn = Conexion.Cadena();            
+            psPrepSencencias = cn.prepareStatement("UPDATE Pedido SET estadoPedido='"+0+"' WHERE idPedido='"+idped+"' and terminado = 0 "); //,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");   
+            //JOptionPane.showMessageDialog(null,doc);   
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+
+    public ResultSet buscarPedidoId(int idped) throws ClassNotFoundException {
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Pedido where idPedido = '" + idped + "and estadoPedido = 1 and terminado = 0'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+
+    }
+    
 }

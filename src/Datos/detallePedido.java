@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -137,12 +138,12 @@ public class detallePedido {
 
         return rsDatos;
     }
-     public ResultSet BuscarComida(int idco) throws ClassNotFoundException {
+    public ResultSet BuscarDetalles2(String idPe) throws ClassNotFoundException {
 
         try {
             Connection cn = Conexion.Cadena();
 
-            String SQL = "Select * from Comida where idComida = '" + idco + "'";
+            String SQL = "Select * from detallePedido where idPedido = '" + idPe + "'";
 
             sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(SQL);
@@ -156,5 +157,83 @@ public class detallePedido {
 
         return rsDatos;
     }
+    
+    
+     public ResultSet ObtenerCantidad(int idPedido) throws ClassNotFoundException {
 
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select COUNT(*) from detallePedido where idPedido = '" + idPedido + "'";
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            
+            
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(detallePedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rsDatos;
+    }
+ public ResultSet BuscarComida(int idComida) throws ClassNotFoundException {
+
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from Comida where idComida = '" + idComida + "'";
+            
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            
+            
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(detallePedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rsDatos;
+    }
+  public ResultSet BuscarComida2(int idComida) throws ClassNotFoundException {
+
+        try {
+            Connection cn = Conexion.Cadena();
+
+            String SQL = "Select * from detallePedido where idComida = '" + idComida + "'";
+            
+
+            sentencia = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(SQL);
+            rsDatos.first();
+            
+            
+            //cn.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(detallePedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rsDatos;
+    }
+ 
+     public void modificar2(int idped,int idcom, int cant){
+
+///ESTOY AQUIIIIIIIIIIIIIIIIIIIIIII
+        
+              
+        try {    
+            Connection cn = Conexion.Cadena();            
+            psPrepSencencias = cn.prepareStatement("UPDATE detallePedido SET cantidad='"+cant+"' WHERE idPedido='"+idped+"' and idComida='"+idcom+"' "); //,estadoComida='"+estado+"' esta sentancia no me deja poner porque no me funciona
+            psPrepSencencias.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Datos Actualizados");   
+            //JOptionPane.showMessageDialog(null,doc);   
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+  
 }
